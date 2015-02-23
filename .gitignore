@@ -8,3 +8,4 @@ atom.symlink/themes
 git/gitconfig.symlink
 
 .idea
+*.bash*
