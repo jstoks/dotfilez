@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+#
+# Run all dotfiles installers.
+
+set -e
+
+cd "$(dirname $0)"/..
+
+if [ "$(uname -s)" == "Darwin" ]; then
+  #Gotta make sure brew is installed first
+  if test ! $(which brew); then
+    echo "Installing Homebrew"
+    ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+    brew update
+  fi
+  find . -name install.osx.sh | while read installer ; do sh -c "${installer}" ; done
+elif [ "$(uname -s)" == "Linux" ]; then
+  find . -name install.linux.sh | while read installer ; do sh -c "${installer}" ; done 
+fi
+
+# find the installers and run them iteratively
+find . -name install.sh | while read installer ; do sh -c "${installer}" ; done
