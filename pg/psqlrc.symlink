@@ -1,0 +1,19 @@
+
+--fancy up borders on database results
+\pset linestyle unicode 
+\pset border 2
+
+--set null character
+\pset null ¤
+
+--turn on query timing
+\timing
+
+--turn off paging
+\pset pager off
+
+\set PROMPT1 '%[%033[33;1m%]%x%[%033[0m%]%[%033[1m%]%/%[%033[0m%]%R%# '
+
+--rm wrap results within the column
+\pset format wrapped
+

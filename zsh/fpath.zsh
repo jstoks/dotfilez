@@ -3,4 +3,4 @@ for topic_folder ($ZSH/*) if [ -d $topic_folder ]; then  fpath=($topic_folder $f
 
 fpath=($ZSH/functions $fpath)
 
-autoload -U $ZSH/functions/*
+autoload -U $ZSH/functions/*(:t)
