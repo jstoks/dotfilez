@@ -1,7 +1,7 @@
 
 
 echo "Installing basic utilities"
-brew install grc coreutils spark ag htop wget hub node pv ctags
+brew install grc coreutils spark ag htop wget hub node pv ctags jq
 
 # Sets reasonable OS X defaults.
 #
@@ -25,7 +25,8 @@ defaults write com.apple.Finder FXPreferredViewStyle Nlsv
 chflags nohidden ~/Library
 
 # Set a really fast key repeat.
-defaults write NSGlobalDomain KeyRepeat -int 0
+defaults write NSGlobalDomain KeyRepeat -int 1
+defaults write NSGlobalDomain InitialKeyRepeat -int 10
 
 # Set the Finder prefs for showing a few different volumes on the Desktop.
 defaults write com.apple.finder ShowExternalHardDrivesOnDesktop -bool true
