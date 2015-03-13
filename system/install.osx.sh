@@ -31,3 +31,6 @@ defaults write NSGlobalDomain InitialKeyRepeat -int 20
 # Set the Finder prefs for showing a few different volumes on the Desktop.
 defaults write com.apple.finder ShowExternalHardDrivesOnDesktop -bool true
 defaults write com.apple.finder ShowRemovableMediaOnDesktop -bool true
+
+# Disable dashboard which is useless
+defaults write com.apple.dashboard mcx-disabled -boolean YES; killall Dock

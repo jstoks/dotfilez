@@ -1,1 +1,2 @@
 alias reload!='. ~/.zshenv;. ~/.zshrc'
+
