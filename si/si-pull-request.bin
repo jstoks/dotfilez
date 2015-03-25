@@ -50,15 +50,6 @@ end
 require 'trello'
 require 'highline/import'
 
-Trello.configure do |config|
-  config.developer_public_key = ENV['TRELLO_DEVELOPER_PUBLIC_KEY']
-  config.member_token = ENV['TRELLO_MEMBER_TOKEN']
-end
-
-me = Trello::Member.find('me')
-
-
-
 def choose_card(cards)
   chosen = nil
   say("Select a card to link:")
@@ -93,12 +84,19 @@ def link_pull_request(cards,url)
       end
     else
       description = ''
-      pull_requests = "\n* #{url}"
+      pull_requests = "* #{url}"
     end
-    card.desc = "#{description}\n\n\n__Pull Requests__\n#{pull_requests}"    
+    card.desc = "#{description}\n\n\n__Pull Requests__\n\n#{pull_requests}"    
     card.save
   end
 end
+
+Trello.configure do |config|
+  config.developer_public_key = ENV['TRELLO_DEVELOPER_PUBLIC_KEY']
+  config.member_token = ENV['TRELLO_MEMBER_TOKEN']
+end
+
+me = Trello::Member.find('me')
 
 chosen_cards = choose_card(me.cards)
 pull_request_url = open_pull_request(message,chosen_cards)

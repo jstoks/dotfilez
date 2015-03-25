@@ -22,9 +22,9 @@ git_visual_changes() {
   local removed="$(echo "$changes" | cut -s -f 2 | paste -sd+ - | bc)"
   local graph=
   if [[ "$(echo "$changes" | wc -l)" -gt 3 ]]; then
-    graph="$(spark -x 20 "$(echo "$changes" | tr "\\t" '+' | bc | tr "\\n" ',')")"
+    graph=" $(spark -x 20 $(echo "$changes" | tr "\\t" '+' | bc | tr "\\n" ','))"
   fi
-  echo "[%{$fg_bold[green]%}$added%{$reset_color%}/%{$fg_bold[red]%}$removed%{$reset_color%}] $graph"
+  echo "[%{$fg_bold[green]%}$added%{$reset_color%}/%{$fg_bold[red]%}$removed%{$reset_color%}]$graph"
 }
 
 git_branch() {
