@@ -1,0 +1,28 @@
+#!/bin/sh
+
+session=$1
+: ${session:=$(basename $(git rev-parse --show-toplevel 2> /dev/null) 2> /dev/null)}
+: ${session:=$(basename $PWD)}
+
+session=${session#'.'}
+
+if [ -z $session ]; then
+  echo "The session name is not set."
+  exit
+fi
+
+tmux -2 new-session -d -s $session
+
+tmux rename-window -t $session:1 vim
+tmux split-window   -h
+tmux select-pane  -t 0
+tmux resize-pane  -R 40
+tmux new-window    -t $session -a -n terminal
+tmux split-window   -h
+tmux select-pane -t 0
+#tmux new-window    -t $session -a -n DB
+#tmux split-window   -v
+#tmux select-pane -t 0
+
+tmux select-window -t $session:1
+tmux -2 attach -t $session

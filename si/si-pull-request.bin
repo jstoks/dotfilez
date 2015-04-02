@@ -32,7 +32,6 @@ EOS
   opt :base, 'The base of the pull request as: "branch", "owner:branch" or "owner/repo:branch". Default: branch in origin', type: :string
   opt :head, 'The head branch for the pull request:  "branch", "owner:branch", "owner/repo:branch"', type: :string
   opt :message, "The title and message of the pull request.", type: :string
-  opt :open, "Open the pull request in the browser once done.", type: :boolean
 end
 
 Trollop::die 'Trello environment variables TRELLO_DEVELOPER_PUBLIC_KEY and TRELLO_MEMBER_TOKEN must be set.' if ENV['TRELLO_DEVELOPER_PUBLIC_KEY'].nil? || ENV['TRELLO_MEMBER_TOKEN'].nil?
@@ -67,8 +66,7 @@ def open_pull_request(message,cards)
   message = "#{message}\n\n#{cards.map{|c| c.short_url}.join("\n")}"
   base = $opts[:base] ? "-b '#{$opts[:base]}'" : ''
   head = $opts[:head] ? "-h '#{$opts[:head]}'" : ''
-  open = $opts[:open] ? '-o' : ''
-  result = `hub pull-request -m "#{message}" #{head} #{base} #{open}`
+  result = `hub pull-request -m "#{message}" #{head} #{base}`
   check_code(result)
   result
 end
@@ -77,7 +75,7 @@ def link_pull_request(cards,url)
   cards.each do |card|    
     if card.desc.present?
       desc_match = /\A(?<desc>.*?)\n*(__Pull Requests__\n*(?<pulls>.*))?\z/m.match(card.desc)
-      description = desc_match[:desc] || ''
+      description = desc_match|| ''
       pull_requests = desc_match[:pulls] || ''
       unless pull_requests.include?(url)
         pull_requests = "#{pull_requests}\n* #{url}"

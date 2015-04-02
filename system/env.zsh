@@ -1,1 +1,1 @@
-export EDITOR="sublime -w"
+export EDITOR="vi"

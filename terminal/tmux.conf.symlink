@@ -1,0 +1,73 @@
+# remove prefix and make it the backtick
+unbind C-b
+set-option -g prefix `
+bind ` send-prefix
+
+#basic settings
+set -g base-index 1
+setw -g utf8 on
+set -g status-utf8 on
+set -s escape-time 0
+set -g default-terminal "screen-256color"
+set -g history-limit 10000
+
+# titles
+
+set-option -g set-titles on
+set-option -g set-titles-string "#{session_name}"
+
+# force a reload of the config file
+unbind r
+bind r source-file ~/.tmux.conf
+
+#allow mouse... for now
+setw -g mode-mouse on
+set -g mouse-select-pane on
+
+# explicitly disable mouse control
+#setw -g mode-mouse off
+#set -g mouse-select-pane off
+#set -g mouse-resize-pane off
+#set -g mouse-select-window off
+
+# vim movement bindings
+set-option -g status-keys vi
+set-window-option -g mode-keys vi
+bind h select-pane -L
+bind j select-pane -D
+bind k select-pane -U
+bind l select-pane -R
+
+#other movement
+bind-key L last-window
+
+# Setup 'v' to begin selection as in Vim
+bind-key -t vi-copy v begin-selection
+bind-key -t vi-copy y copy-pipe "reattach-to-user-namespace pbcopy"
+
+#splits
+bind | split-window -h
+bind - split-window -v
+
+#dunno
+setw -g monitor-activity on
+set -g visual-activity on
+
+# listen to alerts from all windows
+set -g bell-action any
+
+# pane resizing
+bind-key -r J resize-pane -D 5
+bind-key -r K resize-pane -U 5
+bind-key -r H resize-pane -L 5
+bind-key -r L resize-pane -R 5
+
+# status bar config
+set -g status-left "#h:[#S]"
+set -g status-left-length 50
+set -g status-right-length 50
+#set -g status-right "⚡ #(~/bin/tmux-battery) [✉#(~/bin/imap_check.py)] %H:%M %d-%h-%Y"
+set -g status-right "%H:%M %h %d"
+setw -g window-status-current-format "|#I:#W|"
+set-window-option -g automatic-rename off
+
