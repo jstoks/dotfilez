@@ -149,6 +149,7 @@ install_binfiles () {
 
   for src in $(find "$DOTFILES_ROOT/" -maxdepth 2 -name '*.bin')
   do
+    chmod 775 "$src"
     dst="$DOTFILES_ROOT/bin.symlink/$(basename "${src%.*}")"
     link_file "$src" "$dst"
   done

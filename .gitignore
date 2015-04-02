@@ -9,3 +9,5 @@ git/gitconfig.symlink
 
 .idea
 *.bash*
+*.swp
+vim.symlink/plugged

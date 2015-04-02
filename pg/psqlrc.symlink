@@ -12,7 +12,7 @@
 --turn off paging
 \pset pager off
 
-\set PROMPT1 '%[%033[33;1m%]%x%[%033[0m%]%[%033[1m%]%/%[%033[0m%]%R%# '
+-- \set PROMPT1 '%[%033[33;1m%]%x%[%033[0m%]%[%033[1m%]%/%[%033[0m%]%R%# '
 
 --rm wrap results within the column
 \pset format wrapped

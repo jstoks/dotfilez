@@ -1,0 +1,51 @@
+" First load plugins
+call plug#begin()
+
+Plug 'tpope/vim-sensible'
+Plug 'kien/ctrlp.vim'
+Plug 'scrooloose/syntastic'
+Plug 'rking/ag.vim'
+
+Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+
+" Syntax highighting 
+Plug 'groenewege/vim-less', { 'for': 'less' }
+
+" https://github.com/Raimondi/delimitMate
+
+
+" Futures?
+" https://github.com/ervandew/supertab
+" https://github.com/Raimondi/delimitMate
+" https://github.com/Valloric/YouCompleteMe
+" https://github.com/bling/vim-airline
+" https://github.com/tpope/vim-fugitive
+" https://github.com/sjl/gundo.vim
+" https://github.com/tmhedberg/matchit
+" https://github.com/tpope/vim-surround
+" https://github.com/Lokaltog/vim-easymotion
+" https://github.com/garbas/vim-snipmate
+" https://github.com/wincent/Command-T
+" https://github.com/tpope/vim-rails
+" https://github.com/tpope/vim-commentary
+" https://github.com/tpope/vim-repeat
+" https://github.com/plasticboy/vim-markdown
+
+" Themes
+" https://github.com/chriskempson/base16
+call plug#end()
+set hidden
+
+" ctrl-p
+let g:ctrlp_map = '<c-p>'
+let g:ctrlp_show_hidden = 1
+
+" Nerd Tree
+map <C-n> :NERDTreeToggle<CR>
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+
+syntax on
+colorscheme flatland
+set expandtab
+set shiftwidth=2
+set softtabstop=2

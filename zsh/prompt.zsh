@@ -12,6 +12,21 @@ else
   git="/usr/bin/git"
 fi
 
+git_visual_changes() {
+  local stats="$(git diff --numstat | sed '/Gemfile\.lock/d')"
+  if [[ "$stats" == "" ]]; then
+    return
+  fi
+  local changes="$(echo $stats | cut -s -f 1,2 | sed '/-/d')"
+  local added="$(echo "$changes" | cut -s -f 1 | paste -sd+ - | bc)"
+  local removed="$(echo "$changes" | cut -s -f 2 | paste -sd+ - | bc)"
+  local graph=
+  if [[ "$(echo "$changes" | wc -l)" -gt 3 ]]; then
+    graph=" $(spark -x 20 $(echo "$changes" | tr "\\t" '+' | bc | tr "\\n" ','))"
+  fi
+  echo "[%{$fg_bold[green]%}$added%{$reset_color%}/%{$fg_bold[red]%}$removed%{$reset_color%}]$graph"
+}
+
 git_branch() {
   echo $($git symbolic-ref HEAD 2>/dev/null | awk -F/ {'print $NF'})
 }
@@ -25,7 +40,7 @@ git_dirty() {
     then
       echo "%{$fg_bold[green]%}($(git_prompt_info))%{$reset_color%}"
     else
-      echo "%{$fg_bold[red]%}($(git_prompt_info))%{$reset_color%}"
+      echo "%{$fg_bold[red]%}($(git_prompt_info))%{$reset_color%} $(git_visual_changes)"
     fi
   fi
 }
@@ -79,10 +94,10 @@ rb_prompt() {
 }
 
 directory_name() {
-  echo "%{$fg_bold[blue][%}%1/%\/]%{$reset_color%}"
+  echo "%{$fg_bold[blue][%}%~]%{$reset_color%}"
 }
 
-export PROMPT=$'\n$(rb_prompt)$(directory_name) $(git_dirty)$(need_push)\n› '
+export PROMPT=$'\n$(rb_prompt)$(directory_name) $(git_dirty)\n› '
 set_prompt () {
   export RPROMPT="%{$fg_bold[cyan]%}%{$reset_color%}"
 }
