@@ -11,3 +11,4 @@ git/gitconfig.symlink
 *.bash*
 *.swp
 vim.symlink/plugged
+bin.symlink/*

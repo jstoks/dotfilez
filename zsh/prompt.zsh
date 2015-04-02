@@ -80,6 +80,8 @@ ruby_version() {
     echo $rv
   elif (( $+commands[rvm-prompt] )); then
     echo "$(rvm-prompt | awk '{print $1}')"
+  else
+    echo "$([[ $(ruby --version) =~ ([0-9]{1,2}\.[0-9]{1,2}\.[0-9]{1,2}) ]] && echo $match[1])"
   fi
 
 }
