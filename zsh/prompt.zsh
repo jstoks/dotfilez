@@ -102,7 +102,7 @@ prompt_host() {
   
   case "$host" in
     previewchanges)
-      echo"demo"
+      echo "demo"
       ;;
     *)
       echo $host
