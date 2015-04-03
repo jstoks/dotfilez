@@ -49,3 +49,8 @@ colorscheme flatland
 set expandtab
 set shiftwidth=2
 set softtabstop=2
+
+"Support clipboard
+if $TMUX == ''
+    set clipboard+=unnamed
+endif

@@ -1,0 +1,11 @@
+#!/bin/bash
+
+if [[ $# -eq 0 ]]; then
+  echo "Usage: crawlfish <hostname>"
+  exit
+fi
+
+port=$(jot -r 1 1024-65535)
+
+ssh -R $port:localhost:22 $1 -t "export CRAWLFISH_PORT=$port; zsh --login"
+
