@@ -97,7 +97,20 @@ directory_name() {
   echo "%{$fg_bold[blue][%}$PROMPT_HOST: %~]%{$reset_color%}"
 }
 
-export PROMPT_HOST=$(hostname -f | cut -f 1 -d .)
+prompt_host() {
+  local host=$(hostname -f | cut -f 1 -d .)
+  
+  case "$host" in
+    previewchanges)
+      echo"demo"
+      ;;
+    *)
+      echo $host
+      ;;
+  esac
+}
+
+export PROMPT_HOST=$(prompt_host)
 export PROMPT=$'\n$(rb_prompt)$(directory_name) $(git_dirty)\n› '
 set_prompt () {
   export RPROMPT="%{$fg_bold[cyan]%}%{$reset_color%}"
