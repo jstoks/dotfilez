@@ -10,8 +10,13 @@ Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 
 " Syntax highighting 
 Plug 'groenewege/vim-less', { 'for': 'less' }
+Plug 'godlygeek/tabular'
+Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
 
-" https://github.com/Raimondi/delimitMate
+
+" Probably good.
+Plug 'Raimondi/delimitMate'
+Plug 'tpope/vim-surround'
 
 
 " Futures?
@@ -22,18 +27,18 @@ Plug 'groenewege/vim-less', { 'for': 'less' }
 " https://github.com/tpope/vim-fugitive
 " https://github.com/sjl/gundo.vim
 " https://github.com/tmhedberg/matchit
-" https://github.com/tpope/vim-surround
 " https://github.com/Lokaltog/vim-easymotion
 " https://github.com/garbas/vim-snipmate
 " https://github.com/wincent/Command-T
 " https://github.com/tpope/vim-rails
 " https://github.com/tpope/vim-commentary
 " https://github.com/tpope/vim-repeat
-" https://github.com/plasticboy/vim-markdown
+
 
 " Themes
 " https://github.com/chriskempson/base16
 call plug#end()
+autocmd BufNewFile,BufReadPost *.md set filetype=markdown
 set hidden
 
 " ctrl-p
