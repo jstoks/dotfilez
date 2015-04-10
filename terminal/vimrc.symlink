@@ -52,10 +52,70 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTree
 syntax on
 colorscheme flatland
 set expandtab
+set backspace=indent,eol,start
+set autoindent
+set copyindent
 set shiftwidth=2
-set softtabstop=2
+set tabstop=2
+set nowrap
+set shiftround
+set number
+set ignorecase
+set smartcase
+set smarttab
+set hlsearch
+set incsearch
+set history=1000
+set undolevels=1000
+set wildignore=*.swp,*.bak,*.dump,*.dmp,*.class
+set visualbell
+set noerrorbells
+
+set nobackup
+set noswapfile
 
 "Support clipboard
 if $TMUX == ''
     set clipboard+=unnamed
 endif
+
+" Leader Keys
+let mapleader=" "
+nnoremap <Space> <Nop>
+
+function! ToggleNERDTreeAndTagbar()
+    let w:jumpbacktohere = 1
+
+    " Detect which plugins are open
+    if exists('t:NERDTreeBufName')
+        let nerdtree_open = bufwinnr(t:NERDTreeBufName) != -1
+    else
+        let nerdtree_open = 0
+    endif
+    let tagbar_open = bufwinnr('__Tagbar__') != -1
+
+    " Perform the appropriate action
+    if nerdtree_open && tagbar_open
+        NERDTreeClose
+        TagbarClose
+    elseif nerdtree_open
+        TagbarOpen
+    elseif tagbar_open
+        NERDTree
+    else
+        NERDTree
+        TagbarOpen
+    endif
+
+    " Jump back to the original window
+    for window in range(1, winnr('$'))
+        execute window . 'wincmd w'
+        if exists('w:jumpbacktohere')
+            unlet w:jumpbacktohere
+            break
+        endif
+    endfor
+endfunction
+
+nnoremap <Leader>\ :NERDTreeToggle<CR>
+
