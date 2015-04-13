@@ -89,7 +89,7 @@ ruby_version() {
 rb_prompt() {
   if ! [[ -z "$(ruby_version)" ]]
   then
-    echo "%{$fg_bold[yellow]%}$(ruby_version)%{$reset_color%} "
+    echo "%{$fg_bold[magenta]%}$(ruby_version)%{$reset_color%} "
   else
     echo ""
   fi
@@ -113,14 +113,32 @@ prompt_host() {
 }
 
 export PROMPT_HOST=$(prompt_host)
-export PROMPT=$'\n$(rb_prompt)$(directory_name) $(git_dirty)\n› '
-set_prompt () {
-  export RPROMPT="%{$fg_bold[cyan]%}%{$reset_color%}"
-}
+
+function insert-mode() { echo "› " }
+function normal-mode() { echo "%{$fg[yellow]%}$ " }
 
 precmd() {
-  title "zsh" "%m" "%55<...<%~"
-  set_prompt
+  print -P "\n$(rb_prompt)$(directory_name) $(git_dirty)" 
+  export PROMPT=$(insert-mode)
 }
 
+preexec () { echo -ne "\e[0m" }
+
+function set-prompt () {
+  case ${KEYMAP} in
+    (vicmd)      VI_MODE="$(normal-mode)" ;;
+    (main|viins) VI_MODE="$(insert-mode)" ;;
+    (*)          VI_MODE="$(insert-mode)" ;;
+  esac
+  export PROMPT="$VI_MODE"
+}
+
+
+function zle-line-init zle-keymap-select {
+    set-prompt
+    zle reset-prompt
+} 
+
+zle -N zle-line-init
+zle -N zle-keymap-select
 
