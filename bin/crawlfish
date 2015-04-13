@@ -5,7 +5,8 @@ if [[ $# -eq 0 ]]; then
   exit
 fi
 
-port=$(jot -r 1 1024-65535)
+export CRAWLFISH_PORT=$(jot -r 1 1024-65535)
+HOSTNAME=$1
+shift
 
-ssh -R $port:localhost:22 $1 -t "export CRAWLFISH_PORT=$port; zsh --login"
-
+ssh -o SendEnv=CRAWLFISH_PORT -R $CRAWLFISH_PORT:localhost:22 $HOSTNAME "$@"

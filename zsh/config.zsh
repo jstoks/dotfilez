@@ -3,7 +3,7 @@ if [[ -n $SSH_CONNECTION ]]; then
 else
   export PS1='%3~$(git_info_for_prompt)%# '
 fi
-
+export KEYTIMEOUT=3
 export LSCOLORS="exfxcxdxbxegedabagacad"
 export CLICOLOR=true
 
@@ -32,4 +32,6 @@ setopt HIST_REDUCE_BLANKS
 # don't expand aliases _before_ completion has finished
 #   like: git comm-[tab]
 setopt complete_aliases
+
+bindkey -v
 
