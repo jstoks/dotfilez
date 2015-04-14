@@ -1,0 +1,8 @@
+#!/bin/bash
+#sup?
+
+if [ "$1" ]; then
+  echo $@ | crawlfish demo "cat - > /var/spool/sup"
+else
+  cat - | crawlfish demo "cat - > /var/spool/sup"
+fi

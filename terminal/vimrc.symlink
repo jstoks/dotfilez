@@ -1,9 +1,11 @@
 " First load plugins
 call plug#begin()
-
 Plug 'tpope/vim-sensible'
-" Plug 'kien/ctrlp.vim'
-Plug 'wincent/Command-T'
+if $TOTAL_CONTROL == 'true'
+  Plug 'wincent/Command-T'
+else
+  Plug 'kien/ctrlp.vim'
+endif
 Plug 'scrooloose/syntastic'
 Plug 'rking/ag.vim'
 
@@ -90,3 +92,9 @@ nnoremap <Leader>h <C-w>h
 nnoremap <Leader>j <C-w>j
 nnoremap <Leader>k <C-w>k
 nnoremap <Leader>l <C-w>l
+if $TOTAL_CONTROL == 'true'
+  " Nothing
+else
+  let g:ctrlp_map = '<Leader>t'
+endif
+

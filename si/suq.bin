@@ -1,0 +1,4 @@
+#!/bin/bash
+#sup
+
+crawlfish demo "cat /var/spool/sup"
