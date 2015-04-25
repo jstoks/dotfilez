@@ -12,3 +12,4 @@ git/gitconfig.symlink
 *.swp
 vim.symlink/plugged
 bin.symlink/*
+.DS_Store

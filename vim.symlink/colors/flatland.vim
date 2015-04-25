@@ -113,6 +113,17 @@ hi VertSplit guifg=#515253 guibg=NONE gui=NONE ctermfg=237 ctermbg=237 cterm=NON
 hi String guifg=#b0d000 guibg=NONE gui=NONE ctermfg=247 ctermbg=NONE cterm=NONE
 hi cFormat ctermfg=221 ctermbg=NONE cterm=NONE guifg=#f1e94b guibg=NONE gui=NONE
 
+hi TabLineFill ctermfg=238 ctermbg=250
+hi TabLine ctermfg=238 ctermbg=74
+hi TabLineSel ctermfg=238 ctermbg=74
+
+hi link MBENormal TabLineFill
+hi link MBEChanged TabLineFill
+hi link MBEVisibleNormal TabLineFill
+hi link MBEVisibleChanged TabLineFill
+hi link MBEVisibleActiveNormal TabLineSel
+hi link MBEVisibleActiveChanged TabLineSel
+
 hi! link VisualNOS Visual
 hi! link FoldColumn Folded
 hi! link Special Constant

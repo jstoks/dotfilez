@@ -10,6 +10,8 @@ Plug 'scrooloose/syntastic'
 Plug 'rking/ag.vim'
 
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+" Plug 'fholgado/minibufexpl.vim'
+Plug 'zefei/vim-wintabs'
 
 " Syntax highighting 
 Plug 'groenewege/vim-less', { 'for': 'less' }
@@ -24,7 +26,6 @@ Plug 'tpope/vim-surround'
 
 " Futures?
 " https://github.com/ervandew/supertab
-" https://github.com/Raimondi/delimitMate
 " https://github.com/Valloric/YouCompleteMe
 " https://github.com/bling/vim-airline
 " https://github.com/tpope/vim-fugitive
@@ -32,7 +33,6 @@ Plug 'tpope/vim-surround'
 " https://github.com/tmhedberg/matchit
 " https://github.com/Lokaltog/vim-easymotion
 " https://github.com/garbas/vim-snipmate
-" https://github.com/wincent/Command-T
 " https://github.com/tpope/vim-rails
 " https://github.com/tpope/vim-commentary
 " https://github.com/tpope/vim-repeat
@@ -44,9 +44,6 @@ call plug#end()
 autocmd BufNewFile,BufReadPost *.md set filetype=markdown
 set hidden
 
-" ctrl-p
-let g:ctrlp_map = '<c-p>'
-let g:ctrlp_show_hidden = 1
 
 " Nerd Tree
 map <C-n> :NERDTreeToggle<CR>
@@ -76,6 +73,8 @@ set noerrorbells
 
 set nobackup
 set noswapfile
+set splitbelow
+set splitright
 
 "Support clipboard
 if $TMUX == ''
@@ -85,16 +84,43 @@ endif
 " Leader Keys
 let mapleader=" "
 nnoremap <Space> <Nop>
+nnoremap <C-e> <esc>
+inoremap <C-e> <esc>
+inoremap ,, <esc> 
+cmap <C-e> <C-c>
 
-nnoremap <Leader>r :so $MYVIMRC
+nnoremap <Leader>` :so $MYVIMRC<CR>
 nnoremap <Leader>\ :NERDTreeToggle<CR>
 nnoremap <Leader>h <C-w>h
 nnoremap <Leader>j <C-w>j
 nnoremap <Leader>k <C-w>k
 nnoremap <Leader>l <C-w>l
+map <C-s> :w<CR>
+
+" Wintabs
+map <C-h> <Plug>(wintabs_previous)
+map <C-l> <Plug>(wintabs_next)
+map <C-T>c <Plug>(wintabs_close)
+map <C-T>o <Plug>(wintabs_only)
+map <C-W>c <Plug>(wintabs_close_window)
+map <C-W>o <Plug>(wintabs_only_window)
+command! Tabc WintabsCloseVimtab
+command! Tabo WintabsOnlyVimtab
+let g:wintabs_autoclose = 0
+
+" MinBufExpl
+" map <Leader>a :bprev<CR>
+" map <Leader>r :bnext<CR>
+
 if $TOTAL_CONTROL == 'true'
   " Nothing
 else
   let g:ctrlp_map = '<Leader>t'
+  nnoremap <Leader>b :CtrlPBuffer<CR>
+  let g:ctrlp_show_hidden = 1
 endif
+
+" autocmd vimenter * MBEOpen
+" let g:miniBufExplBuffersNeeded = 1
+" let g:miniBufExplBRSplit = 0
 

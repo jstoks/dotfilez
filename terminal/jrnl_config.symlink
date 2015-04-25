@@ -1,0 +1,11 @@
+{
+  "journals": {
+    "default": "~/.jrnl/work.txt",
+    "work": "~/.jrnl/work.txt",
+    "home": "~/.jrnl/home.txt"
+  },
+  default_hour: 3,
+  default_minute: 11,
+  highlight: true,
+  linewrap: false
+}

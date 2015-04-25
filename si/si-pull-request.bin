@@ -75,7 +75,7 @@ def link_pull_request(cards,url)
   cards.each do |card|    
     if card.desc.present?
       desc_match = /\A(?<desc>.*?)\n*(__Pull Requests__\n*(?<pulls>.*))?\z/m.match(card.desc)
-      description = desc_match|| ''
+      description = desc_match[:desc]|| ''
       pull_requests = desc_match[:pulls] || ''
       unless pull_requests.include?(url)
         pull_requests = "#{pull_requests}\n* #{url}"
