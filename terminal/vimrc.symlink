@@ -84,9 +84,7 @@ endif
 " Leader Keys
 let mapleader=" "
 nnoremap <Space> <Nop>
-nnoremap <C-e> <esc>
-inoremap <C-e> <esc>
-inoremap ,, <esc> 
+noremap <C-e> <esc>
 cmap <C-e> <C-c>
 
 nnoremap <Leader>` :so $MYVIMRC<CR>
@@ -123,4 +121,7 @@ endif
 " autocmd vimenter * MBEOpen
 " let g:miniBufExplBuffersNeeded = 1
 " let g:miniBufExplBRSplit = 0
+
+" Remove trailing white space
+autocmd BufWritePre * :%s/\s\+$//e
 
