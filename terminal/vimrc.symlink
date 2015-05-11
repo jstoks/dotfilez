@@ -13,7 +13,7 @@ Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 " Plug 'fholgado/minibufexpl.vim'
 Plug 'zefei/vim-wintabs'
 
-" Syntax highighting 
+" Syntax highighting
 Plug 'groenewege/vim-less', { 'for': 'less' }
 Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
@@ -22,7 +22,14 @@ Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
 " Probably good.
 Plug 'Raimondi/delimitMate'
 Plug 'tpope/vim-surround'
+Plug 'tpope/vim-repeat'
 
+" Tmux ease
+Plug 'benmills/vimux'
+
+" Notes
+" Plug 'xolox/vim-misc'
+" Plug 'xolox/vim-notes'
 
 " Futures?
 " https://github.com/ervandew/supertab
@@ -35,7 +42,7 @@ Plug 'tpope/vim-surround'
 " https://github.com/garbas/vim-snipmate
 " https://github.com/tpope/vim-rails
 " https://github.com/tpope/vim-commentary
-" https://github.com/tpope/vim-repeat
+" vim-dict
 
 
 " Themes
@@ -81,10 +88,16 @@ if $TMUX == ''
     set clipboard+=unnamed
 endif
 
+nnoremap <F2> :set invpaste paste?<CR>
+set pastetoggle=<F2>
+set showmode
+
 " Leader Keys
 let mapleader=" "
 nnoremap <Space> <Nop>
-noremap <C-e> <esc>
+inoremap <C-e> <esc>
+nnoremap <C-e> <esc>
+vnoremap <C-e> <esc>
 cmap <C-e> <C-c>
 
 nnoremap <Leader>` :so $MYVIMRC<CR>
@@ -125,3 +138,23 @@ endif
 " Remove trailing white space
 autocmd BufWritePre * :%s/\s\+$//e
 
+command! CloseHiddenBuffers call s:CloseHiddenBuffers()
+function! s:CloseHiddenBuffers()
+  let open_buffers = []
+
+  for i in range(tabpagenr('$'))
+    call extend(open_buffers, tabpagebuflist(i + 1))
+  endfor
+
+  for num in range(1, bufnr("$") + 1)
+    if buflisted(num) && index(open_buffers, num) == -1
+      exec "bdelete ".num
+    endif
+  endfor
+endfunction
+
+"Notes
+" let g:notes_directories = ['~/notes']
+" let g:notes_suffix = '.txt'
+" let g:notes_word_boundaries = 1
+" let g:notes_smart_quotes = 0
