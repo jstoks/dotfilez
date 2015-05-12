@@ -136,8 +136,8 @@ endif
 " let g:miniBufExplBRSplit = 0
 
 " Remove trailing white space
-autocmd BufWritePre * :%s/\s\+$//e
-
+autocmd BufWritePre * :%s/\(\S\)\s\+$/\1/e
+                
 command! CloseHiddenBuffers call s:CloseHiddenBuffers()
 function! s:CloseHiddenBuffers()
   let open_buffers = []
