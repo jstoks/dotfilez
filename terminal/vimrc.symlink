@@ -17,7 +17,7 @@ Plug 'zefei/vim-wintabs'
 Plug 'groenewege/vim-less', { 'for': 'less' }
 Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
-
+Plug 'JesseKPhillips/d.vim', { 'for': 'd' }
 
 " Probably good.
 Plug 'Raimondi/delimitMate'

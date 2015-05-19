@@ -34,5 +34,4 @@ setopt HIST_REDUCE_BLANKS
 # setopt complete_aliases
 setopt no_complete_aliases
 
-bindkey -v
 
