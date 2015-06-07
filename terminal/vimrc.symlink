@@ -18,6 +18,7 @@ Plug 'groenewege/vim-less', { 'for': 'less' }
 Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
 Plug 'JesseKPhillips/d.vim', { 'for': 'd' }
+Plug 'jdonaldson/vaxe', { 'for': 'hx' }
 
 " Probably good.
 Plug 'Raimondi/delimitMate'
