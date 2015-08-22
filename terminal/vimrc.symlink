@@ -20,7 +20,7 @@ Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
 Plug 'JesseKPhillips/d.vim', { 'for': 'd' }
 "Plug 'mxw/vim-jsx'
 "Plug 'pangloss/vim-javascript'
-Plug 'jdonaldson/vaxe', { 'for': 'hx' }
+Plug 'jdonaldson/vaxe'
 
 " Probably good.
 Plug 'Raimondi/delimitMate'

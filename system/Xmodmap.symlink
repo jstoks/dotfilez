@@ -1,0 +1,15 @@
+!Swap right control and right alt
+remove Control = Control_R
+remove Mod1 = ISO_Level3_Shift
+keycode 105 = ISO_Level3_Shift
+keycode 108 = Control_R
+add Control = Control_R
+add Mod1 = ISO_Level3_Shift
+
+! Swap Caps_Lock and Control_L
+remove Lock = Caps_Lock
+remove Control = Control_L
+keysym Control_L = Caps_Lock
+keysym Caps_Lock = Control_L
+add Lock = Caps_Lock
+add Control = Caps_Lock
