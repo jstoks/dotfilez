@@ -8,6 +8,7 @@ else
 endif
 Plug 'scrooloose/syntastic'
 Plug 'rking/ag.vim'
+Plug 'stephpy/vim-yaml'
 
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 " Plug 'fholgado/minibufexpl.vim'

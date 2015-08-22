@@ -13,3 +13,5 @@ git/gitconfig.symlink
 vim.symlink/plugged
 bin.symlink/*
 .DS_Store
+*/.netrwhist
+
