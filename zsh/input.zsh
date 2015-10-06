@@ -1,3 +1,4 @@
+bindkey -e
 zle -N newtab
 
 bindkey '^[^[[D' backward-word
@@ -31,7 +32,7 @@ zle -N edit-command-line
 bindkey '^[edit-command-line' edit-command-line
 
 bindkey ' ' magic-space
-bindkey -e
+
 if [[ "$(uname -s)" == "Linux" && -f "$HOME/.xmodmap" ]]; then
   source "$HOME/.xmodmap"
 fi
