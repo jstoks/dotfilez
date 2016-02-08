@@ -47,7 +47,7 @@ git_dirty() {
 }
 
 git_prompt_info () {
- ref=$($git symbolic-ref HEAD 2>/dev/null) || return
+ local ref=$($git symbolic-ref HEAD 2>/dev/null) || return
 # echo "(%{\e[0;33m%}${ref#refs/heads/}%{\e[0m%})"
  echo "${ref#refs/heads/}"
 }
@@ -106,7 +106,7 @@ function insert-mode() { echo "› " }
 function normal-mode() { echo "%{$fg[yellow]%}$ " }
 
 precmd() {
-  print -P "\n$(rb_prompt)$(directory_name) $(git_dirty)" 
+  print -P "\n$(rb_prompt)$(directory_name) $(git_dirty)"
   export PROMPT=$(insert-mode)
 }
 
@@ -125,7 +125,7 @@ function set-prompt () {
 function zle-line-init zle-keymap-select {
     set-prompt
     zle reset-prompt
-} 
+}
 
 zle -N zle-line-init
 zle -N zle-keymap-select
