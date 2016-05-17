@@ -18,11 +18,12 @@ Plug 'zefei/vim-wintabs'
 Plug 'groenewege/vim-less', { 'for': 'less' }
 Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
-Plug 'JesseKPhillips/d.vim', { 'for': 'd' }
-"Plug 'mxw/vim-jsx'
-"Plug 'pangloss/vim-javascript'
-Plug 'jdonaldson/vaxe'
+Plug 'pangloss/vim-javascript'
+Plug 'mxw/vim-jsx'
 Plug 'elixir-lang/vim-elixir'
+" Plug 'lambdatoast/elm.vim'
+" Plug 'jdonaldson/vaxe'
+" Plug 'JesseKPhillips/d.vim', { 'for': 'd' }
 
 " Probably good.
 Plug 'Raimondi/delimitMate'
@@ -32,13 +33,12 @@ Plug 'tpope/vim-repeat'
 " Tmux ease
 Plug 'benmills/vimux'
 
-" Notes
-" Plug 'xolox/vim-misc'
-" Plug 'xolox/vim-notes'
+" Fancy
+"Plug 'Valloric/YouCompleteMe'
+
 
 " Futures?
 " https://github.com/ervandew/supertab
-" https://github.com/Valloric/YouCompleteMe
 " https://github.com/bling/vim-airline
 " https://github.com/tpope/vim-fugitive
 " https://github.com/sjl/gundo.vim
