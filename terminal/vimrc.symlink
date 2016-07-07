@@ -18,9 +18,9 @@ Plug 'zefei/vim-wintabs'
 Plug 'groenewege/vim-less', { 'for': 'less' }
 Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
-Plug 'pangloss/vim-javascript'
-Plug 'mxw/vim-jsx'
-Plug 'elixir-lang/vim-elixir'
+Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
+" Plug 'mxw/vim-jsx'
+" Plug 'elixir-lang/vim-elixir'
 " Plug 'lambdatoast/elm.vim'
 " Plug 'jdonaldson/vaxe'
 " Plug 'JesseKPhillips/d.vim', { 'for': 'd' }
@@ -31,10 +31,13 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 
 " Tmux ease
-Plug 'benmills/vimux'
+" Plug 'benmills/vimux'
 
 " Fancy
 "Plug 'Valloric/YouCompleteMe'
+Plug 'reedes/vim-pencil', { 'for': 'markdown' }
+Plug 'junegunn/goyo.vim', { 'for': 'markdown' }
+Plug 'junegunn/limelight.vim', { 'for': 'markdown' }
 
 
 " Futures?
@@ -53,8 +56,7 @@ Plug 'benmills/vimux'
 " Themes
 " https://github.com/chriskempson/base16
 call plug#end()
-autocmd BufNewFile,BufReadPost *.md set filetype=markdown
-set hidden
+
 
 
 " Nerd Tree
@@ -69,7 +71,6 @@ set autoindent
 set copyindent
 set shiftwidth=2
 set tabstop=2
-set nowrap
 set shiftround
 set number
 set ignorecase
@@ -82,11 +83,14 @@ set undolevels=1000
 set wildignore=*.swp,*.bak,*.dump,*.dmp,*.class
 set visualbell
 set noerrorbells
+set hidden
+set nowrap
 
 set nobackup
 set noswapfile
 set splitbelow
 set splitright
+set nofoldenable
 
 "Support clipboard
 if $TMUX == ''
@@ -163,3 +167,13 @@ endfunction
 " let g:notes_suffix = '.txt'
 " let g:notes_word_boundaries = 1
 " let g:notes_smart_quotes = 0
+set nocompatible
+filetype plugin on       " may already be in your .vimrc
+
+let g:pencil#wrapModeDefault = 'soft'   " default is 'hard'
+augroup pencil
+  autocmd!
+  autocmd FileType markdown,mkd call pencil#init()
+  autocmd FileType text         call pencil#init()
+augroup END
+let g:goyo_width=120
