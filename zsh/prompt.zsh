@@ -13,7 +13,7 @@ else
 fi
 
 git_visual_changes() {
-  local stats="$(git diff --numstat | sed '/Gemfile\.lock\|schema\.rb/d')"
+  local stats="$(git diff --numstat | sed '/^0\s\+0\|^-\|Gemfile\.lock\|schema\.rb/d')"
   if [[ "$stats" == "" ]]; then
     return
   fi
