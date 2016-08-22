@@ -85,6 +85,7 @@ set visualbell
 set noerrorbells
 set hidden
 set nowrap
+set scroll=0
 
 set nobackup
 set noswapfile
@@ -177,3 +178,14 @@ augroup pencil
   autocmd FileType text         call pencil#init()
 augroup END
 let g:goyo_width=120
+
+" Wintabs
+map <C-h> <Plug>(wintabs_previous)
+map <C-l> <Plug>(wintabs_next)
+map <C-T>c <Plug>(wintabs_close)
+map <C-T>o <Plug>(wintabs_only)
+map <C-W>c <Plug>(wintabs_close_window)
+map <C-W>o <Plug>(wintabs_only_window)
+command! Tabc WintabsCloseVimtab
+command! Tabo WintabsOnlyVimtab
+let g:wintabs_autoclose = 0

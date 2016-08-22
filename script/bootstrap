@@ -153,6 +153,16 @@ install_binfiles () {
     dst="$DOTFILES_ROOT/bin.symlink/$(basename "${src%.*}")"
     link_file "$src" "$dst"
   done
+
+  for src in $(find "$DOTFILES_ROOT/" -maxdepth 3 -name '*.rb')
+  do
+    top=$(head -n 1 $src)
+    if [[ ${top:0:2} == '#!' && $top == *ruby* ]]; then
+      chmod 775 "$src"
+      dst="$DOTFILES_ROOT/bin.symlink/$(basename "${src%.*}")"
+      link_file "$src" "$dst"
+    fi
+  done
 }
 
 setup_gitconfig

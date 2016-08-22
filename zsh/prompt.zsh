@@ -20,7 +20,7 @@ git_visual_changes() {
   local changes="$(echo $stats | cut -s -f 1,2 | sed '/-/d')"
   local added="$(echo "$changes" | cut -s -f 1 | paste -sd+ - | bc)"
   local removed="$(echo "$changes" | cut -s -f 2 | paste -sd+ - | bc)"
-  local untracked="$(git ls-files -o --exclude-standard | wc -l)"
+  local untracked="$(git ls-files -o --exclude-standard | gwc -l)"
   local graph=
   if [[ "$(echo "$changes" | wc -l)" -gt 3 ]]; then
     graph=" $(spark -x 20 $(echo "$changes" | tr "\\t" '+' | bc | tr "\\n" ','))"
