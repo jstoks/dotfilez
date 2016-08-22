@@ -1,11 +1,11 @@
 " First load plugins
 call plug#begin()
 Plug 'tpope/vim-sensible'
-if $TOTAL_CONTROL == 'true'
-  Plug 'wincent/Command-T'
-else
-  Plug 'kien/ctrlp.vim'
-endif
+"if $TOTAL_CONTROL == 'true'
+"  Plug 'wincent/Command-T'
+"else
+Plug 'kien/ctrlp.vim'
+"endif
 Plug 'scrooloose/syntastic'
 Plug 'rking/ag.vim'
 Plug 'stephpy/vim-yaml'
@@ -133,13 +133,8 @@ let g:wintabs_autoclose = 0
 " map <Leader>a :bprev<CR>
 " map <Leader>r :bnext<CR>
 
-if $TOTAL_CONTROL == 'true'
-  " Nothing
-else
-  let g:ctrlp_map = '<Leader>t'
-  nnoremap <Leader>b :CtrlPBuffer<CR>
-  let g:ctrlp_show_hidden = 1
-endif
+let g:ctrlp_map = '<Leader>t'
+nnoremap <Leader>b :CtrlPBuffer<CR>
 
 " autocmd vimenter * MBEOpen
 " let g:miniBufExplBuffersNeeded = 1
@@ -189,3 +184,6 @@ map <C-W>o <Plug>(wintabs_only_window)
 command! Tabc WintabsCloseVimtab
 command! Tabo WintabsOnlyVimtab
 let g:wintabs_autoclose = 0
+
+" Command-T
+let g:CommandTCancelMap='<C-e>'

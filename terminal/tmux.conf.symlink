@@ -5,6 +5,7 @@ bind ` send-prefix
 
 #basic settings
 set -g base-index 1
+set-window-option -g pane-base-index 1
 set -s escape-time 0
 set -g default-terminal "screen-256color"
 set -g history-limit 10000
@@ -76,3 +77,5 @@ set -g status-right "%H:%M %h %d"
 setw -g window-status-current-format "|#I:#W|"
 set-window-option -g automatic-rename off
 
+set-window-option -g main-pane-height 35
+set-window-option -g main-pane-width 120
