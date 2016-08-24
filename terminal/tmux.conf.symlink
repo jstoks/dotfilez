@@ -79,3 +79,4 @@ set-window-option -g automatic-rename off
 
 set-window-option -g main-pane-height 35
 set-window-option -g main-pane-width 120
+set-window-option -g other-pane-width 60
