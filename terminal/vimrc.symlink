@@ -19,8 +19,11 @@ Plug 'zefei/vim-wintabs'
 Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
 Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
+Plug 'rhysd/vim-crystal'
 " Plug 'mxw/vim-jsx'
 Plug 'elixir-lang/vim-elixir', { 'commit': '7707db342d49ffca3e0046260405eeaa35df5a82'}
+Plug 'tpope/vim-projectionist'
+Plug 'tpope/vim-rake', { 'for': 'ruby' }
 " Plug 'lambdatoast/elm.vim'
 " Plug 'jdonaldson/vaxe'
 " Plug 'JesseKPhillips/d.vim', { 'for': 'd' }
@@ -35,9 +38,9 @@ Plug 'tpope/vim-repeat'
 
 " Fancy
 "Plug 'Valloric/YouCompleteMe'
-Plug 'reedes/vim-pencil', { 'for': 'markdown' }
-Plug 'junegunn/goyo.vim', { 'for': 'markdown' }
-Plug 'junegunn/limelight.vim', { 'for': 'markdown' }
+Plug 'reedes/vim-pencil', { 'for': ['markdown', 'text'] }
+Plug 'junegunn/goyo.vim', { 'for': ['markdown', 'text'] }
+Plug 'junegunn/limelight.vim', { 'for': ['text', 'markdown'] }
 
 
 " Futures?

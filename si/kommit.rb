@@ -12,4 +12,11 @@ OptionParser.new do |opts|
 end.parse!
 
 puts options.inspect
-puts ARGV.inspect
+
+message = ARGV.first
+
+if (parts = message.match(/^#(?<id>\d+)\s(?<message>.*)$/)
+  id = parts[:id]
+  message = parts[:message]
+  raise RuntimeError "Tried to commit with 2 ids: [#{options[:id]}, #{id}]" if options[:id] && :id != options[:id]
+end

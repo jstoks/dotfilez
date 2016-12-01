@@ -1,5 +1,8 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =3
+let g:netrw_dirhist_cnt =6
 let g:netrw_dirhist_1='/Users/jscott/.dotfiles/vim.symlink'
 let g:netrw_dirhist_2='/Users/jscott/projects/pricing/app/views/recommendations'
 let g:netrw_dirhist_3='/Users/jscott/.dotfiles/vim.symlink/plugged/vim-elixir'
+let g:netrw_dirhist_4='/Users/jscott/dev/apps/dashboard/lib'
+let g:netrw_dirhist_5='/Users/jscott/dev/gems/core_data'
+let g:netrw_dirhist_6='/Users/jscott/.dotfiles'
