@@ -4,7 +4,7 @@ Plug 'tpope/vim-sensible'
 "if $TOTAL_CONTROL == 'true'
 "  Plug 'wincent/Command-T'
 "else
-Plug 'kien/ctrlp.vim'
+Plug 'ctrlpvim/ctrlp.vim'
 "endif
 Plug 'scrooloose/syntastic'
 Plug 'rking/ag.vim'
@@ -20,10 +20,16 @@ Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
 Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 " Plug 'mxw/vim-jsx'
-" Plug 'elixir-lang/vim-elixir'
+Plug 'elixir-lang/vim-elixir'
+Plug 'slim-template/vim-slim'
+Plug 'posva/vim-vue'
+Plug 'digitaltoad/vim-pug'
 " Plug 'lambdatoast/elm.vim'
-" Plug 'jdonaldson/vaxe'
+Plug 'jdonaldson/vaxe'
 " Plug 'JesseKPhillips/d.vim', { 'for': 'd' }
+Plug 'xolox/vim-misc'
+" Plug 'xolox/vim-lua-ftplugin'
+Plug 'quabug/vim-gdscript'
 
 " Probably good.
 Plug 'Raimondi/delimitMate'
@@ -134,6 +140,9 @@ let g:wintabs_autoclose = 0
 " map <Leader>r :bnext<CR>
 
 let g:ctrlp_map = '<Leader>t'
+let g:ctrlp_custom_ignore = {
+      \ 'dir': '\v[\/](\.git|\.hg|node_modules|_build|deps)$'
+      \ }
 nnoremap <Leader>b :CtrlPBuffer<CR>
 
 " autocmd vimenter * MBEOpen
@@ -187,3 +196,16 @@ let g:wintabs_autoclose = 0
 
 " Command-T
 let g:CommandTCancelMap='<C-e>'
+
+autocmd BufNewFile,BufRead *.slim setlocal filetype=slim
+
+" Lua
+let g:lua_complete_keywords = 0
+let g:lua_complete_globals = 0
+let g:lua_complete_library = 0
+let g:lua_complete_dynamic = 0
+
+" GUi
+set guioptions-=m  "menu bar
+set guioptions-=T  "toolbar
+set guioptions-=r  "scrollbar"
