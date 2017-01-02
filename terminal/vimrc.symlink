@@ -15,15 +15,17 @@ Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'zefei/vim-wintabs'
 
 " Syntax highighting
-Plug 'groenewege/vim-less', { 'for': 'less' }
+"Plug 'groenewege/vim-less', { 'for': 'less' }
 Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
 Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
+Plug 'rhysd/vim-crystal'
 " Plug 'mxw/vim-jsx'
-Plug 'elixir-lang/vim-elixir'
 Plug 'slim-template/vim-slim'
 Plug 'posva/vim-vue'
 Plug 'digitaltoad/vim-pug'
+Plug 'tpope/vim-projectionist'
+Plug 'tpope/vim-rake', { 'for': 'ruby' }
 " Plug 'lambdatoast/elm.vim'
 Plug 'jdonaldson/vaxe'
 " Plug 'JesseKPhillips/d.vim', { 'for': 'd' }
@@ -41,9 +43,9 @@ Plug 'tpope/vim-repeat'
 
 " Fancy
 "Plug 'Valloric/YouCompleteMe'
-Plug 'reedes/vim-pencil', { 'for': 'markdown' }
-Plug 'junegunn/goyo.vim', { 'for': 'markdown' }
-Plug 'junegunn/limelight.vim', { 'for': 'markdown' }
+Plug 'reedes/vim-pencil', { 'for': ['markdown', 'text'] }
+Plug 'junegunn/goyo.vim', { 'for': ['markdown', 'text'] }
+Plug 'junegunn/limelight.vim', { 'for': ['text', 'markdown'] }
 
 
 " Futures?
@@ -74,7 +76,6 @@ colorscheme flatland
 set expandtab
 set backspace=indent,eol,start
 set autoindent
-set copyindent
 set shiftwidth=2
 set tabstop=2
 set shiftround

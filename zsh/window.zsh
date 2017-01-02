@@ -17,3 +17,7 @@ function title() {
     ;;
   esac
 }
+
+function set_title {
+  printf "\033k$1\033\\"
+}
