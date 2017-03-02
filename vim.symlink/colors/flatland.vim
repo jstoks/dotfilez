@@ -113,9 +113,11 @@ hi VertSplit guifg=#515253 guibg=NONE gui=NONE ctermfg=237 ctermbg=237 cterm=NON
 hi String guifg=#b0d000 guibg=NONE gui=NONE ctermfg=247 ctermbg=NONE cterm=NONE
 hi cFormat ctermfg=221 ctermbg=NONE cterm=NONE guifg=#f1e94b guibg=NONE gui=NONE
 
-hi TabLineFill ctermfg=238 ctermbg=250
-hi TabLine ctermfg=238 ctermbg=74
-hi TabLineSel ctermfg=238 ctermbg=74
+hi TabLineFill ctermfg=238 ctermbg=250 guifg=#444444 guibg=#bcbcbc
+hi TabLine ctermfg=238 ctermbg=74 guifg=#444444 guibg=#5fafd7
+hi TabLineSel ctermfg=238 ctermbg=74 guifg=#444444 guibg=#5fafd7
+hi ExtraWhitespace ctermfg=231 ctermbg=234 cterm=NONE guifg=#f8f8f8 guibg=#26292c gui=NONE
+hi gdscriptSpaceError ctermfg=231 ctermbg=234 cterm=NONE guifg=#f8f8f8 guibg=#26292c gui=NONE
 
 hi link MBENormal TabLineFill
 hi link MBEChanged TabLineFill
