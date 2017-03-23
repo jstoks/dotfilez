@@ -1,9 +1,4 @@
-#old prompt
-#export PS1="\n\h \[\033[01;94m\][\w] \[\033[01;31m\]\$(__git_ps1 \"(%s) \")\[\033[0m\]\n\[\033[01;30m\][\!]\[\033[0m\] \$ "
-
 autoload colors && colors
-# cheers, @ehrenmurdick
-# http://github.com/ehrenmurdick/config/blob/master/zsh/prompt.zsh
 
 if (( $+commands[git] ))
 then
@@ -12,7 +7,7 @@ else
   git="/usr/bin/git"
 fi
 
-git_visual_changes() {
+prompt_git_visual_changes() {
   local stats="$(git diff --numstat | sed '/^0\s\+0\|^-\|Gemfile\.lock\|schema\.rb/d')"
   if [[ "$stats" == "" ]]; then
     return
@@ -23,37 +18,32 @@ git_visual_changes() {
   local untracked="$(git ls-files -o --exclude-standard | wc -l)"
   local graph=
   if [[ "$(echo "$changes" | wc -l)" -gt 3 ]]; then
-    graph=" $(spark -x 20 $(echo "$changes" | tr "\\t" '+' | bc | tr "\\n" ','))"
+    graph=" |$(spark -x 20 $(echo "$changes" | tr "\\t" '+' | bc | tr "\\n" ','))|"
   fi
   echo "[%{$fg_bold[green]%}$added%{$reset_color%}/%{$fg_bold[red]%}$removed%{$reset_color%}/%{$fg_bold[yellow]%}$untracked%{$reset_color%}]$graph"
 }
 
-git_branch() {
-  echo $($git symbolic-ref HEAD 2>/dev/null | awk -F/ {'print $NF'})
-}
-
-git_dirty() {
+prompt_git_info() {
   if $(! $git status -s &> /dev/null)
   then
     echo ""
   else
     if [[ $($git status --porcelain) == "" ]]
     then
-      echo "%{$fg_bold[green]%}($(git_prompt_info))%{$reset_color%}"
+      echo "%{$fg_bold[green]%}($(prompt_git_branch))%{$reset_color%}"
     else
-      echo "%{$fg_bold[red]%}($(git_prompt_info))%{$reset_color%} $(git_visual_changes)"
+      echo "%{$fg_bold[red]%}($(prompt_git_branch))%{$reset_color%} $(prompt_git_visual_changes)"
     fi
   fi
 }
 
-git_prompt_info () {
+prompt_git_branch() {
  local ref=$($git symbolic-ref HEAD 2>/dev/null) || return
-# echo "(%{\e[0;33m%}${ref#refs/heads/}%{\e[0m%})"
  echo "${ref#refs/heads/}"
 }
 
 ruby_version() {
-  if [[ -n `type chruby | grep "function"` ]]
+  if (( $+commands[chruby] ))
   then
     local v="`chruby | grep '\*'`"
     local regex='\* ([^-]*)-([^-]*)(-([^-]*))?'
@@ -74,16 +64,17 @@ ruby_version() {
 
 }
 
-rb_prompt() {
-  if ! [[ -z "$(ruby_version)" ]]
+prompt_ruby_version() {
+  local ver="$(ruby_version)"
+  if ! [[ -z "$ver" ]]
   then
-    echo "%{$fg_bold[magenta]%}$(ruby_version)%{$reset_color%} "
+    echo "%{$fg_bold[magenta]%}$ver%{$reset_color%} "
   else
     echo ""
   fi
 }
 
-directory_name() {
+prompt_directory_name() {
   echo "%{$fg_bold[blue][%}$PROMPT_HOST: %~]%{$reset_color%}"
 }
 
@@ -101,32 +92,5 @@ prompt_host() {
 }
 
 export PROMPT_HOST=$(prompt_host)
-
-function insert-mode() { echo "› " }
-function normal-mode() { echo "%{$fg[yellow]%}$ " }
-
-precmd() {
-  print -P "\n$(rb_prompt)$(directory_name) $(git_dirty)"
-  export PROMPT=$(insert-mode)
-}
-
-preexec () { echo -ne "\e[0m" }
-
-function set-prompt () {
-  case ${KEYMAP} in
-    (vicmd)      VI_MODE="$(normal-mode)" ;;
-    (main|viins) VI_MODE="$(insert-mode)" ;;
-    (*)          VI_MODE="$(insert-mode)" ;;
-  esac
-  export PROMPT="$VI_MODE"
-}
-
-
-function zle-line-init zle-keymap-select {
-    set-prompt
-    zle reset-prompt
-}
-
-zle -N zle-line-init
-zle -N zle-keymap-select
+export PROMPT=$'\n$(prompt_ruby_version)$(prompt_directory_name) $(prompt_git_info)\n› '
 
