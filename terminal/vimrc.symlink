@@ -15,6 +15,10 @@ Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'zefei/vim-wintabs'
 
 " Syntax highighting
+
+" Elixir
+Plug 'elixir-lang/vim-elixir'
+
 "Plug 'groenewege/vim-less', { 'for': 'less' }
 Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
@@ -23,6 +27,7 @@ Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 " Plug 'mxw/vim-jsx'
 Plug 'slim-template/vim-slim'
 Plug 'posva/vim-vue'
+Plug 'cakebaker/scss-syntax.vim'
 Plug 'digitaltoad/vim-pug'
 Plug 'tpope/vim-projectionist'
 Plug 'tpope/vim-rake', { 'for': 'ruby' }
