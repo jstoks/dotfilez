@@ -1,23 +1,28 @@
 " First load plugins
 call plug#begin()
 Plug 'tpope/vim-sensible'
-"if $TOTAL_CONTROL == 'true'
-"  Plug 'wincent/Command-T'
-"else
-Plug 'ctrlpvim/ctrlp.vim'
-"endif
-Plug 'scrooloose/syntastic'
+
+Plug '/usr/local/opt/fzf'
+Plug 'junegunn/fzf.vim'
+Plug 'scrooloose/syntastic', { 'for': ['php', 'ruby', 'javascript', 'elixir', 'd', 'rust', 'java', 'kotlin', 'yaml'] }
 Plug 'rking/ag.vim'
-Plug 'stephpy/vim-yaml'
+Plug 'stephpy/vim-yaml', { 'for': 'yaml' }
+Plug 'cespare/vim-toml', { 'for': 'toml' }
 
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
-" Plug 'fholgado/minibufexpl.vim'
 Plug 'zefei/vim-wintabs'
 
 " Syntax highighting
 
+" PHP
+Plug 'jwalton512/vim-blade', { 'for': 'php' }
+Plug 'StanAngeloff/php.vim', { 'for': 'php' }
+
 " Elixir
-Plug 'elixir-lang/vim-elixir'
+Plug 'elixir-lang/vim-elixir', { 'for': 'elixir' }
+
+" Kotlin
+Plug 'udalov/kotlin-vim', { 'for': 'kotlin' }
 
 "Plug 'groenewege/vim-less', { 'for': 'less' }
 Plug 'godlygeek/tabular'
@@ -25,10 +30,10 @@ Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
 Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 " Plug 'rhysd/vim-crystal'
 " Plug 'mxw/vim-jsx'
-Plug 'slim-template/vim-slim'
-Plug 'posva/vim-vue'
+"Plug 'slim-template/vim-slim'
+"Plug 'posva/vim-vue'
 Plug 'cakebaker/scss-syntax.vim'
-Plug 'digitaltoad/vim-pug'
+"Plug 'digitaltoad/vim-pug'
 Plug 'tpope/vim-projectionist'
 Plug 'tpope/vim-rake', { 'for': 'ruby' }
 " Plug 'lambdatoast/elm.vim'
@@ -54,15 +59,16 @@ Plug 'reedes/vim-pencil', { 'for': ['markdown', 'text'] }
 Plug 'junegunn/goyo.vim', { 'for': ['markdown', 'text'] }
 Plug 'junegunn/limelight.vim', { 'for': ['text', 'markdown'] }
 
+" Snippets
+Plug 'sirver/ultisnips'
+Plug 'honza/vim-snippets'
 
 " Futures?
 " https://github.com/ervandew/supertab
-" https://github.com/bling/vim-airline
 " https://github.com/tpope/vim-fugitive
 " https://github.com/sjl/gundo.vim
 " https://github.com/tmhedberg/matchit
 " https://github.com/Lokaltog/vim-easymotion
-" https://github.com/garbas/vim-snipmate
 " https://github.com/tpope/vim-rails
 " https://github.com/tpope/vim-commentary
 " vim-dict
@@ -107,6 +113,8 @@ set splitbelow
 set splitright
 set nofoldenable
 
+nmap <silent> ,/ :nohlsearch<CR>
+
 "Support clipboard
 if $TMUX == ''
     set clipboard+=unnamed
@@ -119,10 +127,7 @@ set showmode
 " Leader Keys
 let mapleader=" "
 nnoremap <Space> <Nop>
-inoremap <C-e> <esc>
-nnoremap <C-e> <esc>
-vnoremap <C-e> <esc>
-cmap <C-e> <C-c>
+inoremap ,, <esc>
 
 nnoremap <Leader>` :so $MYVIMRC<CR>
 nnoremap <Leader>\ :NERDTreeToggle<CR>
@@ -143,19 +148,24 @@ command! Tabc WintabsCloseVimtab
 command! Tabo WintabsOnlyVimtab
 let g:wintabs_autoclose = 0
 
-" MinBufExpl
-" map <Leader>a :bprev<CR>
-" map <Leader>r :bnext<CR>
 
-let g:ctrlp_map = '<Leader>t'
-let g:ctrlp_custom_ignore = {
-      \ 'dir': '\v[\/](\.git|\.hg|node_modules|_build|deps)$'
-      \ }
-nnoremap <Leader>b :CtrlPBuffer<CR>
+" FZF
+"""""""""""""""""""""""""
 
-" autocmd vimenter * MBEOpen
-" let g:miniBufExplBuffersNeeded = 1
-" let g:miniBufExplBRSplit = 0
+" Mapping selecting mappings
+nmap <silent> <leader>t :Files<cr>
+nmap <silent> <leader>r :Buffers<cr>
+nmap <silent> <leader>e :GFiles?<cr>
+nmap <leader><tab> <plug>(fzf-maps-n)
+xmap <leader><tab> <plug>(fzf-maps-x)
+omap <leader><tab> <plug>(fzf-maps-o)
+
+" Insert mode completion
+imap <c-x><c-k> <plug>(fzf-complete-word)
+imap <c-x><c-f> <plug>(fzf-complete-path)
+imap <c-x><c-j> <plug>(fzf-complete-file-ag)
+imap <c-x><c-l> <plug>(fzf-complete-line)
+
 
 " Remove trailing white space
 autocmd BufWritePre * :%s/\(\S\)\s\+$/\1/e
@@ -175,11 +185,6 @@ function! s:CloseHiddenBuffers()
   endfor
 endfunction
 
-"Notes
-" let g:notes_directories = ['~/notes']
-" let g:notes_suffix = '.txt'
-" let g:notes_word_boundaries = 1
-" let g:notes_smart_quotes = 0
 set nocompatible
 filetype plugin on       " may already be in your .vimrc
 
@@ -190,6 +195,9 @@ augroup pencil
   autocmd FileType text         call pencil#init()
 augroup END
 let g:goyo_width=120
+autocmd! User GoyoEnter Limelight
+autocmd! User GoyoLeave Limelight!
+autocmd BufNewFile,BufRead *.md Goyo
 
 " Wintabs
 map <C-h> <Plug>(wintabs_previous)
@@ -217,3 +225,37 @@ let g:lua_complete_dynamic = 0
 set guioptions-=m  "menu bar
 set guioptions-=T  "toolbar
 set guioptions-=r  "scrollbar"
+
+" Put at the very end of your .vimrc file.
+
+function! PhpSyntaxOverride()
+  hi! def link phpDocTags  phpDefine
+  hi! def link phpDocParam phpType
+endfunction
+
+augroup phpSyntaxOverride
+  autocmd!
+  autocmd FileType php call PhpSyntaxOverride()
+augroup END
+
+" If the current buffer has never been saved, it will have no name,
+" call the file browser to save it, otherwise just save it.
+command -nargs=0 -bar Update if &modified
+                           \|    if empty(bufname('%'))
+                           \|        browse confirm write
+                           \|    else
+                           \|        confirm write
+                           \|    endif
+                           \|endif
+
+
+" Use CTRL-S for saving, also in Insert mode
+noremap <C-S> :Update<CR>
+
+vnoremap <C-S> <C-C>:Update<CR>
+inoremap <C-S> <C-O>:Update<CR><ESC>
+
+"Snippets Config
+let g:UltiSnipsExpandTrigger="<c-e>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
