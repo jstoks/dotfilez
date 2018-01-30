@@ -4,10 +4,13 @@ Plug 'tpope/vim-sensible'
 
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
-Plug 'scrooloose/syntastic', { 'for': ['php', 'ruby', 'javascript', 'elixir', 'd', 'rust', 'java', 'kotlin', 'yaml'] }
-Plug 'rking/ag.vim'
-Plug 'stephpy/vim-yaml', { 'for': 'yaml' }
-Plug 'cespare/vim-toml', { 'for': 'toml' }
+Plug 'w0rp/ale'
+Plug 'mileszs/ack.vim'
+" Plug 'stephpy/vim-yaml', { 'for': 'yaml' }
+" Plug 'cespare/vim-toml', { 'for': 'toml' }
+Plug 'sheerun/vim-polyglot'
+Plug 'airblade/vim-gitgutter'
+
 
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'zefei/vim-wintabs'
@@ -16,23 +19,23 @@ Plug 'zefei/vim-wintabs'
 
 " PHP
 Plug 'jwalton512/vim-blade', { 'for': 'php' }
-Plug 'StanAngeloff/php.vim', { 'for': 'php' }
+" Plug 'StanAngeloff/php.vim', { 'for': 'php' }
 
 " Elixir
-Plug 'elixir-lang/vim-elixir', { 'for': 'elixir' }
+" Plug 'elixir-lang/vim-elixir', { 'for': 'elixir' }
 
 " Kotlin
-Plug 'udalov/kotlin-vim', { 'for': 'kotlin' }
+" Plug 'udalov/kotlin-vim', { 'for': 'kotlin' }
 
 "Plug 'groenewege/vim-less', { 'for': 'less' }
 Plug 'godlygeek/tabular'
-Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
-Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
+" Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
+" Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 " Plug 'rhysd/vim-crystal'
 " Plug 'mxw/vim-jsx'
 "Plug 'slim-template/vim-slim'
 "Plug 'posva/vim-vue'
-Plug 'cakebaker/scss-syntax.vim'
+" Plug 'cakebaker/scss-syntax.vim'
 "Plug 'digitaltoad/vim-pug'
 Plug 'tpope/vim-projectionist'
 Plug 'tpope/vim-rake', { 'for': 'ruby' }
@@ -81,8 +84,14 @@ call plug#end()
 
 
 " Nerd Tree
+let NERDTreeMinimalUI = 1
+let NERDTreeDirArrows = 1
+let NERDTreeQuitOnOpen = 1
 map <C-n> :NERDTreeToggle<CR>
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+
+augroup nerdtree
+  autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+augroup END
 
 syntax on
 colorscheme flatland
@@ -168,8 +177,12 @@ imap <c-x><c-l> <plug>(fzf-complete-line)
 
 
 " Remove trailing white space
-autocmd BufWritePre * :%s/\(\S\)\s\+$/\1/e
+augroup general
+  autocmd!
+  autocmd BufWritePre * :%s/\(\S\)\s\+$/\1/e
+augroup END
                 
+
 command! CloseHiddenBuffers call s:CloseHiddenBuffers()
 function! s:CloseHiddenBuffers()
   let open_buffers = []
@@ -193,11 +206,11 @@ augroup pencil
   autocmd!
   autocmd FileType markdown,mkd call pencil#init()
   autocmd FileType text         call pencil#init()
+  autocmd! User GoyoEnter Limelight
+  autocmd! User GoyoLeave Limelight!
+  autocmd BufNewFile,BufRead *.md Goyo
 augroup END
 let g:goyo_width=120
-autocmd! User GoyoEnter Limelight
-autocmd! User GoyoLeave Limelight!
-autocmd BufNewFile,BufRead *.md Goyo
 
 " Wintabs
 map <C-h> <Plug>(wintabs_previous)
@@ -213,7 +226,7 @@ let g:wintabs_autoclose = 0
 " Command-T
 let g:CommandTCancelMap='<C-e>'
 
-autocmd BufNewFile,BufRead *.slim setlocal filetype=slim
+" autocmd BufNewFile,BufRead *.slim setlocal filetype=slim
 
 " Lua
 let g:lua_complete_keywords = 0
@@ -259,3 +272,15 @@ inoremap <C-S> <C-O>:Update<CR><ESC>
 let g:UltiSnipsExpandTrigger="<c-e>"
 let g:UltiSnipsJumpForwardTrigger="<c-b>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+
+" Git Gutter
+if exists('&signcolumn')  " Vim 7.4.2201
+  set signcolumn=yes
+else
+  let g:gitgutter_sign_column_always = 1
+endif
+
+"Linters
+let g:ale_linters = {
+\   'elixir': [],
+\}
