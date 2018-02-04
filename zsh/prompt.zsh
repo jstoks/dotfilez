@@ -8,14 +8,14 @@ else
 fi
 
 prompt_git_visual_changes() {
-  local stats="$(git diff --numstat | sed '/^0\s\+0\|^-\|Gemfile\.lock\|schema\.rb/d')"
+  local stats="$($git diff --numstat | sed '/^0\s\+0\|^-\|Gemfile\.lock\|schema\.rb/d')"
   if [[ "$stats" == "" ]]; then
     return
   fi
   local changes="$(echo $stats | cut -s -f 1,2 | sed '/-/d')"
   local added="$(echo "$changes" | cut -s -f 1 | paste -sd+ - | bc)"
   local removed="$(echo "$changes" | cut -s -f 2 | paste -sd+ - | bc)"
-  local untracked="$(git ls-files -o --exclude-standard | wc -l | tr -d '[:space:]')"
+  local untracked="$($git ls-files -o --exclude-standard | wc -l | tr -d '[:space:]')"
   local graph=
   if [[ "$(echo "$changes" | wc -l)" -gt 3 ]]; then
     graph=" |$(spark -x 20 $(echo "$changes" | tr "\\t" '+' | bc | tr "\\n" ','))|"
@@ -75,22 +75,14 @@ prompt_ruby_version() {
 }
 
 prompt_directory_name() {
-  echo "%{$fg_bold[blue][%}$PROMPT_HOST: %~]%{$reset_color%}"
+  echo "%{$fg_bold[blue]%}$PROMPT_HOST: %~%{$reset_color%}"
 }
 
 prompt_host() {
   local host=$(hostname -f | cut -f 1 -d .)
-  
-  case "$host" in
-    previewchanges)
-      echo "demo"
-      ;;
-    *)
-      echo $host
-      ;;
-  esac
+  echo $host
 }
 
 export PROMPT_HOST=$(prompt_host)
-export PROMPT=$'\n$(prompt_ruby_version)$(prompt_directory_name) $(prompt_git_info)\n› '
+export PROMPT=$'\n$(prompt_directory_name) $(prompt_git_info)\n› '
 
