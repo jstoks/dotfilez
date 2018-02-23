@@ -1,6 +1,9 @@
 " First load plugins
 call plug#begin()
 Plug 'tpope/vim-sensible'
+Plug 'morhetz/gruvbox'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-repeat'
 
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
@@ -8,8 +11,13 @@ Plug 'w0rp/ale'
 Plug 'mileszs/ack.vim'
 " Plug 'stephpy/vim-yaml', { 'for': 'yaml' }
 " Plug 'cespare/vim-toml', { 'for': 'toml' }
+Plug 'godlygeek/tabular'
 Plug 'sheerun/vim-polyglot'
-Plug 'airblade/vim-gitgutter'
+"Plug 'plasticboy/vim-markdown', { 'for': ['markdown', 'vimwiki'] }
+" Plug '2072/PHP-Indenting-for-VIm', { 'for': 'php' }
+"Plug 'airblade/vim-gitgutter'
+Plug 'jiangmiao/auto-pairs'
+"Plug 'vimwiki/vimwiki', { 'branch': 'dev' }
 
 
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
@@ -18,7 +26,7 @@ Plug 'zefei/vim-wintabs'
 " Syntax highighting
 
 " PHP
-Plug 'jwalton512/vim-blade', { 'for': 'php' }
+" Plug 'jwalton512/vim-blade', { 'for': 'php' }
 " Plug 'StanAngeloff/php.vim', { 'for': 'php' }
 
 " Elixir
@@ -28,17 +36,15 @@ Plug 'jwalton512/vim-blade', { 'for': 'php' }
 " Plug 'udalov/kotlin-vim', { 'for': 'kotlin' }
 
 "Plug 'groenewege/vim-less', { 'for': 'less' }
-Plug 'godlygeek/tabular'
-" Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
 " Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 " Plug 'rhysd/vim-crystal'
 " Plug 'mxw/vim-jsx'
 "Plug 'slim-template/vim-slim'
 "Plug 'posva/vim-vue'
 " Plug 'cakebaker/scss-syntax.vim'
-"Plug 'digitaltoad/vim-pug'
-Plug 'tpope/vim-projectionist'
-Plug 'tpope/vim-rake', { 'for': 'ruby' }
+" Plug 'digitaltoad/vim-pug'
+" Plug 'tpope/vim-projectionist'
+" Plug 'tpope/vim-rake', { 'for': 'ruby' }
 " Plug 'lambdatoast/elm.vim'
 " Plug 'jdonaldson/vaxe'
 " Plug 'JesseKPhillips/d.vim', { 'for': 'd' }
@@ -48,23 +54,21 @@ Plug 'tpope/vim-rake', { 'for': 'ruby' }
 " Plug 'quabug/vim-gdscript'
 
 " Probably good.
-Plug 'Raimondi/delimitMate'
-Plug 'tpope/vim-surround'
-Plug 'tpope/vim-repeat'
-Plug 'tpope/vim-liquid'
+" Plug 'Raimondi/delimitMate'
+" Plug 'tpope/vim-liquid'
 
 " Tmux ease
 " Plug 'benmills/vimux'
 
 " Fancy
 "Plug 'Valloric/YouCompleteMe'
-Plug 'reedes/vim-pencil', { 'for': ['markdown', 'text'] }
-Plug 'junegunn/goyo.vim', { 'for': ['markdown', 'text'] }
-Plug 'junegunn/limelight.vim', { 'for': ['text', 'markdown'] }
+" Plug 'reedes/vim-pencil', { 'for': ['markdown', 'text'] }
+" Plug 'junegunn/goyo.vim', { 'for': ['markdown', 'text'] }
+" Plug 'junegunn/limelight.vim', { 'for': ['text', 'markdown'] }
 
 " Snippets
-Plug 'sirver/ultisnips'
-Plug 'honza/vim-snippets'
+" Plug 'sirver/ultisnips'
+" Plug 'honza/vim-snippets'
 
 " Futures?
 " https://github.com/ervandew/supertab
@@ -79,9 +83,8 @@ Plug 'honza/vim-snippets'
 
 " Themes
 " https://github.com/chriskempson/base16
+
 call plug#end()
-
-
 
 " Nerd Tree
 let NERDTreeMinimalUI = 1
@@ -93,8 +96,12 @@ augroup nerdtree
   autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 augroup END
 
+filetype plugin on
 syntax on
-colorscheme flatland
+set nocompatible
+set termguicolors
+"colorscheme flatland
+colorscheme gruvbox
 set expandtab
 set backspace=indent,eol,start
 set autoindent
@@ -102,6 +109,7 @@ set shiftwidth=2
 set tabstop=2
 set shiftround
 set number
+" set relativenumber
 set ignorecase
 set smartcase
 set smarttab
@@ -198,19 +206,16 @@ function! s:CloseHiddenBuffers()
   endfor
 endfunction
 
-set nocompatible
-filetype plugin on       " may already be in your .vimrc
-
-let g:pencil#wrapModeDefault = 'soft'   " default is 'hard'
-augroup pencil
-  autocmd!
-  autocmd FileType markdown,mkd call pencil#init()
-  autocmd FileType text         call pencil#init()
-  autocmd! User GoyoEnter Limelight
-  autocmd! User GoyoLeave Limelight!
-  autocmd BufNewFile,BufRead *.md Goyo
-augroup END
-let g:goyo_width=120
+" let g:pencil#wrapModeDefault = 'soft'   " default is 'hard'
+" augroup pencil
+"   autocmd!
+"   autocmd FileType markdown,mkd call pencil#init()
+"   autocmd FileType text         call pencil#init()
+"   autocmd! User GoyoEnter Limelight
+"   autocmd! User GoyoLeave Limelight!
+"   autocmd BufNewFile,BufRead *.md Goyo
+" augroup END
+" let g:goyo_width=120
 
 " Wintabs
 map <C-h> <Plug>(wintabs_previous)
@@ -238,22 +243,13 @@ let g:lua_complete_dynamic = 0
 set guioptions-=m  "menu bar
 set guioptions-=T  "toolbar
 set guioptions-=r  "scrollbar"
+set guifont=Inconsolata-g:h14 "font"
+set background=dark "dark background"
 
-" Put at the very end of your .vimrc file.
-
-function! PhpSyntaxOverride()
-  hi! def link phpDocTags  phpDefine
-  hi! def link phpDocParam phpType
-endfunction
-
-augroup phpSyntaxOverride
-  autocmd!
-  autocmd FileType php call PhpSyntaxOverride()
-augroup END
 
 " If the current buffer has never been saved, it will have no name,
 " call the file browser to save it, otherwise just save it.
-command -nargs=0 -bar Update if &modified
+command! -nargs=0 -bar Update if &modified
                            \|    if empty(bufname('%'))
                            \|        browse confirm write
                            \|    else
@@ -269,18 +265,36 @@ vnoremap <C-S> <C-C>:Update<CR>
 inoremap <C-S> <C-O>:Update<CR><ESC>
 
 "Snippets Config
-let g:UltiSnipsExpandTrigger="<c-e>"
-let g:UltiSnipsJumpForwardTrigger="<c-b>"
-let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+" let g:UltiSnipsExpandTrigger="<c-e>"
+" let g:UltiSnipsJumpForwardTrigger="<c-b>"
+" let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 
 " Git Gutter
-if exists('&signcolumn')  " Vim 7.4.2201
-  set signcolumn=yes
-else
-  let g:gitgutter_sign_column_always = 1
-endif
+" if exists('&signcolumn')  " Vim 7.4.2201
+"   set signcolumn=yes
+" else
+"   let g:gitgutter_sign_column_always = 1
+" endif
 
 "Linters
 let g:ale_linters = {
 \   'elixir': [],
 \}
+
+"Vim Wiki
+let g:vimwiki_list = [{'path': '~/vimwiki', 'template_path': '~/vimwiki/templates/',
+          \ 'template_default': 'default', 'syntax': 'markdown', 'ext': '.md',
+          \ 'nested_syntaxes': {'php': 'php', 'ruby': 'ruby', 'elixir': 'elixir'},
+          \ 'path_html': '~/vimwiki/site_html/', 'custom_wiki2html': 'vimwiki_markdown',
+          \ 'template_ext': '.tpl'}]
+
+" Put at the very end of your .vimrc file.
+function! PhpSyntaxOverride()
+  hi! def link phpDocTags  phpDefine
+  hi! def link phpDocParam phpType
+endfunction
+
+augroup phpSyntaxOverride
+  autocmd!
+  autocmd FileType php call PhpSyntaxOverride()
+augroup END

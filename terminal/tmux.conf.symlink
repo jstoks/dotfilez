@@ -7,7 +7,9 @@ bind ` send-prefix
 set -g base-index 1
 set-window-option -g pane-base-index 1
 set -s escape-time 0
-set -g default-terminal "screen-256color"
+#set -g default-terminal "screen-256color"
+#set -ga terminal-overrides ",xterm-256color:Tc"
+set -g default-terminal "xterm"
 set -g history-limit 10000
 # set-option -g default-command "reattach-to-user-namespace -l $SHELL"
 

@@ -51,17 +51,10 @@ windows:
         - main:
           - $EDITOR
         - test:
-          - cd $HOMESTEAD_DIRECTORY
-          - vagrant ssh
-          - clear
         - commandline:
   - commands:
       layout: even-horizontal
       panes:
         - left:
         - right:
-          - cd $HOMESTEAD_DIRECTORY
-          - sleep 15
-          - vagrant ssh
-          - clear
   - logs: tail -f storage/logs/laravel.log
