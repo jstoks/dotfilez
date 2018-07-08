@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+say -r200 -vYuri it\'s good

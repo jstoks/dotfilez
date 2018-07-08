@@ -9,3 +9,4 @@ alias gy="git pull"
 alias gyum='git pull upstream master'
 alias gau='git add $(git ls-files -o --exclude-standard)'
 alias git-root="git rev-parse --show-toplevel"
+alias gyom='git pull origin master'

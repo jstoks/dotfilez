@@ -1,1 +1,1 @@
-source /Users/justin/.gvm/scripts/gvm
+#source /Users/justin/.gvm/scripts/gvm

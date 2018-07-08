@@ -7,7 +7,9 @@ Plug 'tpope/vim-repeat'
 
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
-Plug 'w0rp/ale'
+if !has('gui_running')
+  Plug 'w0rp/ale'
+endif
 Plug 'mileszs/ack.vim'
 " Plug 'stephpy/vim-yaml', { 'for': 'yaml' }
 " Plug 'cespare/vim-toml', { 'for': 'toml' }
@@ -16,8 +18,8 @@ Plug 'sheerun/vim-polyglot'
 "Plug 'plasticboy/vim-markdown', { 'for': ['markdown', 'vimwiki'] }
 " Plug '2072/PHP-Indenting-for-VIm', { 'for': 'php' }
 "Plug 'airblade/vim-gitgutter'
-Plug 'jiangmiao/auto-pairs'
-"Plug 'vimwiki/vimwiki', { 'branch': 'dev' }
+" Plug 'jiangmiao/auto-pairs'
+Plug 'vimwiki/vimwiki', { 'branch': 'dev' }
 
 
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
@@ -86,6 +88,8 @@ Plug 'zefei/vim-wintabs'
 
 call plug#end()
 
+filetype plugin indent on
+
 " Nerd Tree
 let NERDTreeMinimalUI = 1
 let NERDTreeDirArrows = 1
@@ -93,11 +97,13 @@ let NERDTreeQuitOnOpen = 1
 map <C-n> :NERDTreeToggle<CR>
 
 augroup nerdtree
+  " Close Nerd Tree when opening file
   autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 augroup END
 
 filetype plugin on
 syntax on
+let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 set nocompatible
 set termguicolors
 "colorscheme flatland
@@ -131,6 +137,7 @@ set splitright
 set nofoldenable
 
 nmap <silent> ,/ :nohlsearch<CR>
+
 
 "Support clipboard
 if $TMUX == ''
@@ -229,7 +236,7 @@ command! Tabo WintabsOnlyVimtab
 let g:wintabs_autoclose = 0
 
 " Command-T
-let g:CommandTCancelMap='<C-e>'
+"let g:CommandTCancelMap='<C-e>'
 
 " autocmd BufNewFile,BufRead *.slim setlocal filetype=slim
 
@@ -243,7 +250,7 @@ let g:lua_complete_dynamic = 0
 set guioptions-=m  "menu bar
 set guioptions-=T  "toolbar
 set guioptions-=r  "scrollbar"
-set guifont=Inconsolata-g:h14 "font"
+set guifont=Anonymous\ Pro:h18 "font"
 set background=dark "dark background"
 
 
@@ -298,3 +305,6 @@ augroup phpSyntaxOverride
   autocmd!
   autocmd FileType php call PhpSyntaxOverride()
 augroup END
+
+" Markdown
+let g:vim_markdown_folding_disabled = 1
