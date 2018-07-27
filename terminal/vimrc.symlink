@@ -134,7 +134,11 @@ set nobackup
 set noswapfile
 set splitbelow
 set splitright
-set nofoldenable
+set foldenable
+set foldmethod=syntax
+set foldlevelstart=20
+
+"autocmd FileType python setlocal foldenable foldmethod=syntax
 
 nmap <silent> ,/ :nohlsearch<CR>
 
