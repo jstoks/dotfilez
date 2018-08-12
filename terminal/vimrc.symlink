@@ -137,6 +137,8 @@ set splitright
 set foldenable
 set foldmethod=syntax
 set foldlevelstart=20
+let php_folding=1
+let php_phpdoc_folding=1
 
 "autocmd FileType python setlocal foldenable foldmethod=syntax
 
@@ -295,7 +297,7 @@ let g:ale_linters = {
 "Vim Wiki
 let g:vimwiki_list = [{'path': '~/vimwiki', 'template_path': '~/vimwiki/templates/',
           \ 'template_default': 'default', 'syntax': 'markdown', 'ext': '.md',
-          \ 'nested_syntaxes': {'php': 'php', 'ruby': 'ruby', 'elixir': 'elixir'},
+          \ 'nested_syntaxes': {'php': 'php', 'ruby': 'ruby', 'elixir': 'elixir', 'python': 'python'},
           \ 'path_html': '~/vimwiki/site_html/', 'custom_wiki2html': 'vimwiki_markdown',
           \ 'template_ext': '.tpl'}]
 
