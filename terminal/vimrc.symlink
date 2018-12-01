@@ -121,8 +121,8 @@ set smartcase
 set smarttab
 set hlsearch
 set incsearch
-set history=1000
-set undolevels=1000
+set history=10000
+set undolevels=10000
 set wildignore=*.swp,*.bak,*.dump,*.dmp,*.class
 set visualbell
 set noerrorbells
@@ -146,9 +146,14 @@ nmap <silent> ,/ :nohlsearch<CR>
 
 
 "Support clipboard
-if $TMUX == ''
-    set clipboard+=unnamed
+if has('mac')
+  let g:clipboard = {'copy': {'+': 'pbcopy', '*': 'pbcopy'}, 'paste': {'+': 'pbpaste', '*': 'pbpaste'}, 'name': 'pbcopy', 'cache_enabled': 0}
 endif
+set clipboard+=unnamedplus
+"Old settings
+"if $TMUX == ''
+"  set clipboard+=unnamedplus
+"endif
 
 nnoremap <F2> :set invpaste paste?<CR>
 set pastetoggle=<F2>
@@ -292,6 +297,7 @@ inoremap <C-S> <C-O>:Update<CR><ESC>
 "Linters
 let g:ale_linters = {
 \   'elixir': [],
+\   'crystal': []
 \}
 
 "Vim Wiki
@@ -314,3 +320,5 @@ augroup END
 
 " Markdown
 let g:vim_markdown_folding_disabled = 1
+
+" Lin
