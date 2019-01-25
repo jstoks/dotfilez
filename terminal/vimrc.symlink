@@ -111,8 +111,8 @@ colorscheme gruvbox
 set expandtab
 set backspace=indent,eol,start
 set autoindent
-set shiftwidth=2
-set tabstop=2
+set shiftwidth=4
+set tabstop=4
 set shiftround
 set number
 " set relativenumber
@@ -140,7 +140,7 @@ set foldlevelstart=20
 let php_folding=1
 let php_phpdoc_folding=1
 
-"autocmd FileType python setlocal foldenable foldmethod=syntax
+autocmd FileType python setlocal foldenable foldmethod=syntax
 
 nmap <silent> ,/ :nohlsearch<CR>
 
