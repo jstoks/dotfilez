@@ -1,1 +1,0 @@
-alias etl="nocorrect etl"

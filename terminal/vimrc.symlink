@@ -8,7 +8,7 @@ Plug 'tpope/vim-repeat'
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
 if !has('gui_running')
-  Plug 'w0rp/ale'
+  "Plug 'w0rp/ale'
 endif
 Plug 'mileszs/ack.vim'
 " Plug 'stephpy/vim-yaml', { 'for': 'yaml' }
