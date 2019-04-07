@@ -7,10 +7,8 @@ Plug 'tpope/vim-repeat'
 
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
-if !has('gui_running')
-  "Plug 'w0rp/ale'
-endif
-Plug 'mileszs/ack.vim'
+Plug 'w0rp/ale'
+" Plug 'mileszs/ack.vim'
 " Plug 'stephpy/vim-yaml', { 'for': 'yaml' }
 " Plug 'cespare/vim-toml', { 'for': 'toml' }
 Plug 'godlygeek/tabular'
@@ -19,11 +17,14 @@ Plug 'sheerun/vim-polyglot'
 " Plug '2072/PHP-Indenting-for-VIm', { 'for': 'php' }
 "Plug 'airblade/vim-gitgutter'
 " Plug 'jiangmiao/auto-pairs'
-Plug 'vimwiki/vimwiki', { 'branch': 'dev' }
+" Plug 'vimwiki/vimwiki', { 'branch': 'dev' }
 
+" Plug 'lvht/phpcd.vim', { 'for': 'php', 'do': 'composer install' }
 
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
-Plug 'zefei/vim-wintabs'
+Plug 'ton/vim-bufsurf'
+
+" Plug 'zefei/vim-wintabs'
 
 " Syntax highighting
 
@@ -94,7 +95,6 @@ filetype plugin indent on
 let NERDTreeMinimalUI = 1
 let NERDTreeDirArrows = 1
 let NERDTreeQuitOnOpen = 1
-map <C-n> :NERDTreeToggle<CR>
 
 augroup nerdtree
   " Close Nerd Tree when opening file
@@ -114,7 +114,9 @@ set autoindent
 set shiftwidth=4
 set tabstop=4
 set shiftround
-set number
+" set number
+set number relativenumber
+set nu rnu
 " set relativenumber
 set ignorecase
 set smartcase
@@ -130,6 +132,10 @@ set hidden
 set nowrap
 set scroll=0
 
+" Load Local vimrc files locally
+set exrc
+set secure
+
 set nobackup
 set noswapfile
 set splitbelow
@@ -141,8 +147,9 @@ let php_folding=1
 let php_phpdoc_folding=1
 
 autocmd FileType python setlocal foldenable foldmethod=syntax
+autocmd FileType php setlocal foldenable foldmethod=syntax
 
-nmap <silent> ,/ :nohlsearch<CR>
+:noremap <silent> <leader>/ :noh<CR>
 
 
 "Support clipboard
@@ -165,64 +172,74 @@ nnoremap <Space> <Nop>
 inoremap ,, <esc>
 
 nnoremap <Leader>` :so $MYVIMRC<CR>
-nnoremap <Leader>\ :NERDTreeToggle<CR>
-nnoremap <Leader>h <C-w>h
-nnoremap <Leader>j <C-w>j
-nnoremap <Leader>k <C-w>k
-nnoremap <Leader>l <C-w>l
-map <C-s> :w<CR>
+"nnoremap <Leader>h <C-w>h
+"nnoremap <Leader>j <C-w>j
+"nnoremap <Leader>k <C-w>k
+"nnoremap <Leader>l <C-w>l
+
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+
+nnoremap <silent> <C-n> :NERDTreeToggle<CR>
+nnoremap <silent> <Leader>\ :NERDTreeToggle<CR>
+
 
 " Wintabs
-map <C-h> <Plug>(wintabs_previous)
-map <C-l> <Plug>(wintabs_next)
-map <C-T>c <Plug>(wintabs_close)
-map <C-T>o <Plug>(wintabs_only)
-map <C-W>c <Plug>(wintabs_close_window)
-map <C-W>o <Plug>(wintabs_only_window)
-command! Tabc WintabsCloseVimtab
-command! Tabo WintabsOnlyVimtab
-let g:wintabs_autoclose = 0
+" map <C-h> <Plug>(wintabs_previous)
+" map <C-l> <Plug>(wintabs_next)
+" map <C-T>c <Plug>(wintabs_close)
+" map <C-T>o <Plug>(wintabs_only)
+" map <C-W>c <Plug>(wintabs_close_window)
+" map <C-W>o <Plug>(wintabs_only_window)
+" command! Tabc WintabsCloseVimtab
+" command! Tabo WintabsOnlyVimtab
+" let g:wintabs_autoclose = 0
 
 
 " FZF
 """""""""""""""""""""""""
 
 " Mapping selecting mappings
-nmap <silent> <leader>t :Files<cr>
-nmap <silent> <leader>r :Buffers<cr>
-nmap <silent> <leader>e :GFiles?<cr>
+
+" All files
+nmap <silent> <leader>p :Files<cr>
+" Files in version control. Most useful
+nmap <silent> <leader>t :GFiles<cr>
+" Search open buffers
+nmap <silent> <leader>b :Buffers<cr>
+" Search changed files in git
+nmap <silent> <leader>g :GFiles?<cr>
+
 nmap <leader><tab> <plug>(fzf-maps-n)
 xmap <leader><tab> <plug>(fzf-maps-x)
 omap <leader><tab> <plug>(fzf-maps-o)
 
 " Insert mode completion
-imap <c-x><c-k> <plug>(fzf-complete-word)
-imap <c-x><c-f> <plug>(fzf-complete-path)
-imap <c-x><c-j> <plug>(fzf-complete-file-ag)
-imap <c-x><c-l> <plug>(fzf-complete-line)
+" imap <c-x><c-k> <plug>(fzf-complete-word)
+" imap <c-x><c-f> <plug>(fzf-complete-path)
+" imap <c-x><c-j> <plug>(fzf-complete-file-ag)
+" imap <c-x><c-l> <plug>(fzf-complete-line)
 
+" Buff Surf
+nnoremap <silent> <leader>[ :BufSurfBack<cr>
+nnoremap <silent> <leader>] :BufSurfForward<cr>
 
-" Remove trailing white space
-augroup general
-  autocmd!
-  autocmd BufWritePre * :%s/\(\S\)\s\+$/\1/e
-augroup END
-                
-
-command! CloseHiddenBuffers call s:CloseHiddenBuffers()
-function! s:CloseHiddenBuffers()
-  let open_buffers = []
-
-  for i in range(tabpagenr('$'))
-    call extend(open_buffers, tabpagebuflist(i + 1))
-  endfor
-
-  for num in range(1, bufnr("$") + 1)
-    if buflisted(num) && index(open_buffers, num) == -1
-      exec "bdelete ".num
-    endif
-  endfor
-endfunction
+"command! CloseHiddenBuffers call s:CloseHiddenBuffers()
+"function! s:CloseHiddenBuffers()
+"  let open_buffers = []
+"
+"  for i in range(tabpagenr('$'))
+"    call extend(open_buffers, tabpagebuflist(i + 1))
+"  endfor
+"
+"  for num in range(1, bufnr("$") + 1)
+"    if buflisted(num) && index(open_buffers, num) == -1
+"      exec "bdelete ".num
+"    endif
+"  endfor
+"endfunction
 
 " let g:pencil#wrapModeDefault = 'soft'   " default is 'hard'
 " augroup pencil
@@ -234,17 +251,6 @@ endfunction
 "   autocmd BufNewFile,BufRead *.md Goyo
 " augroup END
 " let g:goyo_width=120
-
-" Wintabs
-map <C-h> <Plug>(wintabs_previous)
-map <C-l> <Plug>(wintabs_next)
-map <C-T>c <Plug>(wintabs_close)
-map <C-T>o <Plug>(wintabs_only)
-map <C-W>c <Plug>(wintabs_close_window)
-map <C-W>o <Plug>(wintabs_only_window)
-command! Tabc WintabsCloseVimtab
-command! Tabo WintabsOnlyVimtab
-let g:wintabs_autoclose = 0
 
 " Command-T
 "let g:CommandTCancelMap='<C-e>'
@@ -282,30 +288,29 @@ noremap <C-S> :Update<CR>
 vnoremap <C-S> <C-C>:Update<CR>
 inoremap <C-S> <C-O>:Update<CR><ESC>
 
-"Snippets Config
-" let g:UltiSnipsExpandTrigger="<c-e>"
-" let g:UltiSnipsJumpForwardTrigger="<c-b>"
-" let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+" ALE
+" fix files on save
+let g:ale_fix_on_save = 1
 
-" Git Gutter
-" if exists('&signcolumn')  " Vim 7.4.2201
-"   set signcolumn=yes
-" else
-"   let g:gitgutter_sign_column_always = 1
-" endif
+" lint after 1000ms after changes are made both on insert mode and normal mode
+let g:ale_lint_on_text_changed = 'always'
+let g:ale_lint_delay = 1000
 
-"Linters
-let g:ale_linters = {
-\   'elixir': [],
-\   'crystal': []
+" use nice symbols for errors and warnings
+let g:ale_sign_error = '✗ '
+let g:ale_sign_warning = '⚠ '
+
+" fixer configurations
+let g:ale_fixers = {
+\   '*': ['remove_trailing_lines', 'trim_whitespace'],
 \}
 
 "Vim Wiki
-let g:vimwiki_list = [{'path': '~/vimwiki', 'template_path': '~/vimwiki/templates/',
-          \ 'template_default': 'default', 'syntax': 'markdown', 'ext': '.md',
-          \ 'nested_syntaxes': {'php': 'php', 'ruby': 'ruby', 'elixir': 'elixir', 'python': 'python'},
-          \ 'path_html': '~/vimwiki/site_html/', 'custom_wiki2html': 'vimwiki_markdown',
-          \ 'template_ext': '.tpl'}]
+"let g:vimwiki_list = [{'path': '~/vimwiki', 'template_path': '~/vimwiki/templates/',
+"          \ 'template_default': 'default', 'syntax': 'markdown', 'ext': '.md',
+"          \ 'nested_syntaxes': {'php': 'php', 'ruby': 'ruby', 'elixir': 'elixir', 'python': 'python'},
+"          \ 'path_html': '~/vimwiki/site_html/', 'custom_wiki2html': 'vimwiki_markdown',
+"          \ 'template_ext': '.tpl'}]
 
 " Put at the very end of your .vimrc file.
 function! PhpSyntaxOverride()
@@ -320,5 +325,3 @@ augroup END
 
 " Markdown
 let g:vim_markdown_folding_disabled = 1
-
-" Lin

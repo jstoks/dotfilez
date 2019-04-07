@@ -13,6 +13,7 @@ set -g default-terminal "screen-256color"
 set -g history-limit 10000
 # set-option -g default-command "reattach-to-user-namespace -l $SHELL"
 
+
 # titles
 
 set-option -g set-titles on
@@ -27,16 +28,6 @@ set -g mouse on
 bind -n WheelUpPane if-shell -F -t = "#{mouse_any_flag}" "send-keys -M" "if -Ft= '#{pane_in_mode}' 'send-keys -M' 'select-pane -t=; copy-mode -e; send-keys -M'"
 bind -n WheelDownPane select-pane -t= \; send-keys -M
 bind -n C-WheelUpPane select-pane -t= \; copy-mode -e \; send-keys -M
-bind -t vi-copy    C-WheelUpPane   halfpage-up
-bind -t vi-copy    C-WheelDownPane halfpage-down
-bind -t emacs-copy C-WheelUpPane   halfpage-up
-bind -t emacs-copy C-WheelDownPane halfpage-down
-
-# explicitly disable mouse control
-#setw -g mode-mouse off
-#set -g mouse-select-pane off
-#set -g mouse-resize-pane off
-#set -g mouse-select-window off
 
 # vim movement bindings
 set-option -g status-keys vi
@@ -48,10 +39,6 @@ bind l select-pane -R
 
 #other movement
 bind-key L last-window
-
-# Setup 'v' to begin selection as in Vim
-bind-key -t vi-copy v begin-selection
-bind-key -t vi-copy y copy-pipe "reattach-to-user-namespace pbcopy"
 
 #splits
 bind | split-window -h
@@ -82,3 +69,4 @@ set-window-option -g automatic-rename off
 set-window-option -g main-pane-height 35
 set-window-option -g main-pane-width 120
 set-window-option -g other-pane-width 60
+set-window-option -g aggressive-resize
