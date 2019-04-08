@@ -1,18 +1,12 @@
 # Stash your environment variables in ~/.localrc. This means they'll stay out
 # of your main dotfiles repository (which may be public, like this one), but
 # you'll have access to them in your scripts.
-
+#
 safe_source $HOME/.localrc
 
 # all of our zsh files
 typeset -U config_files
 config_files=($ZSH/**/*.zsh)
-
-# load everything but the fpath, env and completion files
-for file in ${${${config_files:#*/fpath.zsh}:#*/completion*}:#*/env.zsh}
-do
-  source $file
-done
 
 # load every fpath
 for file in ${(M)config_files:#*/fpath.zsh}
@@ -22,11 +16,20 @@ done
 
 # initialize autocomplete here, otherwise functions won't be loaded
 autoload -Uz compinit
-if [[ -n ${ZDOTDIR}/.zcompdump(#qN.mh+24) ]]; then
-	compinit;
-else
-	compinit -C;
-fi;
+#if [[ -n ${ZDOTDIR}/.zcompdump(#qN.mh+24) ]]; then
+#	compinit;
+#else
+#	compinit -C;
+#fi;
+setopt EXTENDEDGLOB
+for dump in $HOME/.zcompdump(#qN.m1); do
+  compinit
+  if [[ -s "$dump" && (! -s "$dump.zwc" || "$dump" -nt "$dump.zwc") ]]; then
+    zcompile "$dump"
+  fi
+done
+unsetopt EXTENDEDGLOB
+compinit -C
 
 #zmodload -i zsh/complist
 
@@ -36,6 +39,20 @@ do
   source $file
 done
 
+# load everything but the fpath, env and completion files
+for file in ${${${config_files:#*/fpath.zsh}:#*/completion*}:#*/env.zsh}
+do
+  source $file
+done
 
 
 unset config_files
+
+for key val in ${(kv)configs}; do
+    hash -d $key="$val"
+done
+
+# Entirety of my startup file... then
+if [[ "$PROFILE_STARTUP" == true ]]; then
+    zprof
+fi

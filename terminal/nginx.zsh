@@ -1,5 +1,7 @@
-configs[nginx]=/usr/local/etc/nginx/nginx.conf
+configs[nginx]=/usr/local/etc/nginx
 
 function config_nginx {
-    $EDITOR $configs[nginx]
+    pushd $configs[nginx]
+    $EDITOR
+    popd
 }

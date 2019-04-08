@@ -1,3 +1,8 @@
+export PROFILE_STARTUP=true
+if [[ "$PROFILE_STARTUP" == true ]]; then
+    zmodload zsh/zprof
+fi
+
 # shortcut to this dotfiles path is $ZSH
 export ZSH=$HOME/.dotfiles
 export DOT=$HOME/.dotfiles
@@ -13,20 +18,20 @@ export PROJECTS=$DEV/projects
 # set platform
 export PLATFORM=$(uname -s)
 
-if [ "$PLATFORM" = "Darwin" ]; then
-    function brew_prefix {
-        if ! type brew $>/dev/null; then
+if [[ "$PLATFORM" = "Darwin" ]]; then
+    brew_prefix() {
+        if ! type brew &>/dev/null; then
             return
         fi
-        local prefix="/usr/local"
-        if [ -z "$1" ]; then
-            return $prefix
-        elif [ -f "$prefix/bin/$1" ]; then
-            return "$prefix/bin/$1"
-        elif [ -f "$prefix/opt/$1" ]; then
-            return "$prefix/opt/$1"
+        local pfx="/usr/local"
+        if [[ -z $1 ]]; then
+            echo $pfx
+        elif [[ -f "$pfx/bin/$1" ]]; then
+            echo "$pfx/bin/$1"
+        elif [[ -f "$pfx/opt/$1" ]]; then
+            echo "$pfx/opt/$1"
         else
-            return $(brew --prefix "$1")
+            echo "$(brew --prefix $1)"
         fi
     }
 fi
