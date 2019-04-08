@@ -1,5 +1,5 @@
 
-source $HOME/.asdf/asdf.sh
+safe_source $HOME/.asdf/asdf.sh
 # if [[ -f "/usr/local/share/chruby/chruby.sh" ]]; then
 #   source /usr/local/share/chruby/chruby.sh
 #   source /usr/local/share/chruby/auto.sh
@@ -10,4 +10,3 @@ source $HOME/.asdf/asdf.sh
 # if [[ "$(command -v rbenv)" ]]; then
 #   eval "$(rbenv init -)"
 # fi
-

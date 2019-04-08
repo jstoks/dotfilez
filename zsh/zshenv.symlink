@@ -1,29 +1,56 @@
 # shortcut to this dotfiles path is $ZSH
 export ZSH=$HOME/.dotfiles
+export DOT=$HOME/.dotfiles
 
-# your project folder that we can `c [tab]` to
-export PROJECTS=~/projects
+# Set default editor
+export EDITOR="nvim"
 
-if [[ -a ~/.localenv ]]
-then
-  source ~/.localenv
+# your project folders
+export DEV=$HOME/dev
+export LAB=$DEV/lab
+export PROJECTS=$DEV/projects
+
+# set platform
+export PLATFORM=$(uname -s)
+
+if [ "$PLATFORM" = "Darwin" ]; then
+    function brew_prefix {
+        if ! type brew $>/dev/null; then
+            return
+        fi
+        local prefix="/usr/local"
+        if [ -z "$1" ]; then
+            return $prefix
+        elif [ -f "$prefix/bin/$1" ]; then
+            return "$prefix/bin/$1"
+        elif [ -f "$prefix/opt/$1" ]; then
+            return "$prefix/opt/$1"
+        else
+            return $(brew --prefix "$1")
+        fi
+    }
 fi
 
+# Store config paths in here
+typeset -A configs
+export configs
+
+# source a file if it exists
+function safe_source {
+    [[ -a "$1" ]] && source "$1"
+}
+
+safe_source $HOME/.localenv
+
 # all of our zsh files
-typeset -U config_files
-config_files=($ZSH/**/*.zsh)
+typeset -U env_files
+env_files=($ZSH/**/env.zsh)
 
 
 # load the env files
-for file in ${(M)config_files:#*/env.zsh}
+for file in $env_files
 do
   source $file
 done
 
-# load the path files
-for file in ${(M)config_files:#*/path.zsh}
-do
-  source $file
-done
-
-unset config_files
+unset env_files

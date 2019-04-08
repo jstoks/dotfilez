@@ -1,1 +1,1 @@
-export HOMESTEAD_DIRECTORY="$HOME/dev/Homestead"
+export PATH=$PATH:./vendor/bin
