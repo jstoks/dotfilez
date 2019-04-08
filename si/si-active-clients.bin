@@ -1,4 +1,0 @@
-#!/bin/bash
-
-query="select id,name,'http://clients.searchinfluence.com/clients/'||id as url from clients.clients where status = 'active' and deleted = 'f'"
-psql -h rds -U client_service -d searchinfluence -c "copy ($query) to stdout with csv header;"
