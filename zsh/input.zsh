@@ -1,8 +1,8 @@
 bindkey -e
 zle -N newtab
 
-bindkey '^[[9D' backward-word
-bindkey '^[[9C' forward-word
+bindkey '^[;3D' backward-word
+bindkey '^[;3C' forward-word
 bindkey '^[[5D' beginning-of-line
 bindkey '^[[5C' end-of-line
 bindkey '^[[3~' delete-char

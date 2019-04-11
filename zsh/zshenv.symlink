@@ -1,7 +1,10 @@
-export PROFILE_STARTUP=true
+export PROFILE_STARTUP=false
 if [[ "$PROFILE_STARTUP" == true ]]; then
     zmodload zsh/zprof
 fi
+
+# RESET PATH
+PATH=/usr/bin:/bin:/usr/sbin:/sbin
 
 # shortcut to this dotfiles path is $ZSH
 export ZSH=$HOME/.dotfiles
@@ -26,9 +29,9 @@ if [[ "$PLATFORM" = "Darwin" ]]; then
         local pfx="/usr/local"
         if [[ -z $1 ]]; then
             echo $pfx
-        elif [[ -f "$pfx/bin/$1" ]]; then
+        elif [[ -d "$pfx/bin/$1" ]]; then
             echo "$pfx/bin/$1"
-        elif [[ -f "$pfx/opt/$1" ]]; then
+        elif [[ -d "$pfx/opt/$1" ]]; then
             echo "$pfx/opt/$1"
         else
             echo "$(brew --prefix $1)"

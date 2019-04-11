@@ -157,10 +157,6 @@ if has('mac')
   let g:clipboard = {'copy': {'+': 'pbcopy', '*': 'pbcopy'}, 'paste': {'+': 'pbpaste', '*': 'pbpaste'}, 'name': 'pbcopy', 'cache_enabled': 0}
 endif
 set clipboard+=unnamedplus
-"Old settings
-"if $TMUX == ''
-"  set clipboard+=unnamedplus
-"endif
 
 nnoremap <F2> :set invpaste paste?<CR>
 set pastetoggle=<F2>
@@ -172,10 +168,6 @@ nnoremap <Space> <Nop>
 inoremap ,, <esc>
 
 nnoremap <Leader>` :so $MYVIMRC<CR>
-"nnoremap <Leader>h <C-w>h
-"nnoremap <Leader>j <C-w>j
-"nnoremap <Leader>k <C-w>k
-"nnoremap <Leader>l <C-w>l
 
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
@@ -186,16 +178,6 @@ nnoremap <silent> <C-n> :NERDTreeToggle<CR>
 nnoremap <silent> <Leader>\ :NERDTreeToggle<CR>
 
 
-" Wintabs
-" map <C-h> <Plug>(wintabs_previous)
-" map <C-l> <Plug>(wintabs_next)
-" map <C-T>c <Plug>(wintabs_close)
-" map <C-T>o <Plug>(wintabs_only)
-" map <C-W>c <Plug>(wintabs_close_window)
-" map <C-W>o <Plug>(wintabs_only_window)
-" command! Tabc WintabsCloseVimtab
-" command! Tabo WintabsOnlyVimtab
-" let g:wintabs_autoclose = 0
 
 
 " FZF
@@ -204,9 +186,9 @@ nnoremap <silent> <Leader>\ :NERDTreeToggle<CR>
 " Mapping selecting mappings
 
 " All files
-nmap <silent> <leader>p :Files<cr>
-" Files in version control. Most useful
-nmap <silent> <leader>t :GFiles<cr>
+nmap <silent> <leader>t :Files<cr>
+" Files in version control.
+nmap <silent> <leader>p :GFiles<cr>
 " Search open buffers
 nmap <silent> <leader>b :Buffers<cr>
 " Search changed files in git

@@ -16,6 +16,6 @@ else
   alias ls="ls --color"
 fi
 
-hash -d proj="$PROJECTS"
+hash -d projects="$PROJECTS"
 hash -d lab="$LAB"
 hash -d dev="$DEV"

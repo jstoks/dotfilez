@@ -1,10 +1,10 @@
 #!/bin/sh
 
 session=$1
-: ${session:=$(basename $(git rev-parse --show-toplevel 2> /dev/null) 2> /dev/null)}
+: ${session:=$(basename $(git-root 2> /dev/null) 2> /dev/null)}
 : ${session:=$(basename $PWD)}
 
-session=${session#'.'}
+session=${session//\./-}
 
 if [ -z $session ]; then
   echo "The session name is not set."
@@ -23,4 +23,3 @@ tmux select-pane -t 0
 
 tmux select-window -t $session:1
 tmux -2 attach -t $session
-

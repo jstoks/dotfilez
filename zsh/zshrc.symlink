@@ -22,14 +22,18 @@ autoload -Uz compinit
 #	compinit -C;
 #fi;
 setopt EXTENDEDGLOB
+comped=false
 for dump in $HOME/.zcompdump(#qN.m1); do
   compinit
   if [[ -s "$dump" && (! -s "$dump.zwc" || "$dump" -nt "$dump.zwc") ]]; then
     zcompile "$dump"
+    comped=true
   fi
 done
 unsetopt EXTENDEDGLOB
-compinit -C
+if [[ "$comped" = "false" ]]; then
+  compinit -C
+fi
 
 #zmodload -i zsh/complist
 
