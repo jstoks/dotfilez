@@ -1,0 +1,6 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =4
+let g:netrw_dirhist_1='/usr/local/etc/httpd/extra'
+let g:netrw_dirhist_2='/usr/local/etc/httpd'
+let g:netrw_dirhist_3='/usr/local/etc/httpd/extra'
+let g:netrw_dirhist_4='/Users/jstoks/dev/projects/hitpath-api/vendor/illuminate'
