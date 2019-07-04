@@ -89,6 +89,7 @@ Plug 'ton/vim-bufsurf'
 
 call plug#end()
 
+filetype plugin on
 filetype plugin indent on
 
 " Nerd Tree
@@ -101,7 +102,6 @@ augroup nerdtree
   autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 augroup END
 
-filetype plugin on
 syntax on
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 set nocompatible
@@ -249,7 +249,11 @@ let g:lua_complete_dynamic = 0
 set guioptions-=m  "menu bar
 set guioptions-=T  "toolbar
 set guioptions-=r  "scrollbar"
-set guifont=Anonymous\ Pro:h18 "font"
+"if has("gui_running")
+"  set guifont=AnonymousPro-Regular\ 18
+"else
+"  set guifont=Anonymous\ Pro:h18 "font"
+"endif
 set background=dark "dark background"
 
 
@@ -288,11 +292,11 @@ let g:ale_fixers = {
 \}
 
 "Vim Wiki
-"let g:vimwiki_list = [{'path': '~/vimwiki', 'template_path': '~/vimwiki/templates/',
-"          \ 'template_default': 'default', 'syntax': 'markdown', 'ext': '.md',
-"          \ 'nested_syntaxes': {'php': 'php', 'ruby': 'ruby', 'elixir': 'elixir', 'python': 'python'},
-"          \ 'path_html': '~/vimwiki/site_html/', 'custom_wiki2html': 'vimwiki_markdown',
-"          \ 'template_ext': '.tpl'}]
+" let g:vimwiki_list = [{'path': '~/zone/vimwiki', 'template_path': '~/zone/vimwiki/templates/',
+"           \ 'template_default': 'default', 'syntax': 'markdown', 'ext': '.md',
+"           \ 'nested_syntaxes': {'php': 'php', 'ruby': 'rb', 'elixir': 'ex', 'python': 'py', 'bash': 'sh', 'html': 'html', 'css': 'css'},
+"           \ 'path_html': '~/zone/vimwiki/site_html/', 'custom_wiki2html': 'vimwiki_markdown',
+"           \ 'template_ext': '.tpl'}]
 
 " Put at the very end of your .vimrc file.
 function! PhpSyntaxOverride()
@@ -307,3 +311,6 @@ augroup END
 
 " Markdown
 let g:vim_markdown_folding_disabled = 1
+let g:vim_markdown_fenced_languages = ['php=php', 'ruby=rb', 'elixir=ex', 'javascript=js', 'html=html', 'python=py']
+let g:vim_markdown_new_list_item_indent = 0
+let g:vim_markdown_auto_insert_bullets = 0
