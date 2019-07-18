@@ -37,3 +37,5 @@ if [[ "$(uname -s)" == "Linux" ]]; then
   [[ -f "$HOME/.xmodmap" ]] && source "$HOME/.xmodmap"
   xcape -e "Caps_Lock=Escape"
 fi
+
+unsetopt nomatch
