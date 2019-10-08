@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+curl -sL https://www.ismercuryinretrograde.com/ | grep -ho -m 1 "\(NO\|YES\)\..\+\.\.\."
